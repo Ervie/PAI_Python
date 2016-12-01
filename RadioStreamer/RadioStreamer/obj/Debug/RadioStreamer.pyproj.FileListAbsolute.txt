@@ -1,0 +1,13 @@
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\attach_server.py
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\visualstudio_py_debugger.py
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\visualstudio_py_repl.py
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\visualstudio_py_util.py
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\__init__.py
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\__main__.py
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\bin\AzureSetup.cfg
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\bin\Microsoft.PythonTools.AzureSetup.exe
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\bin\Microsoft.PythonTools.AzureSetup.exe.config
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\bin\wfastcgi.py
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\web.config
+C:\Users\bbuchala\Documents\Git Repos\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\web.debug.config
