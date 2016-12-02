@@ -40,7 +40,7 @@
   background-color: #3a2a45; }
 
 .jp-audio {
-  width: 251px;
+  width: 300px;
   padding: 20px; }
 
 .jp-audio-stream {
@@ -370,8 +370,8 @@ div.jp-video .jp-progress {
 .jp-volume-bar {
   background: url("../../image/jplayer.pink.flag.jpg") 0px -300px repeat-x;
   position: absolute;
-  width: 197px;
-  height: 4px;
+  width: 250px;
+  height: 10px;
   padding: 2px 2px 1px 2px;
   overflow: hidden;
   cursor: pointer; }
@@ -432,6 +432,7 @@ div.jp-video .jp-progress {
   margin: 0;
   overflow: hidden;
   text-align: center;
+  font-size: 16px;
   cursor: default; }
 
 .jp-video .jp-details {

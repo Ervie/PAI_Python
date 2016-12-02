@@ -44,13 +44,11 @@ input[type="checkbox"].input-validation-error {
 }
 
 .vertical-center {
-  position: absolute;
-  width: 300px;
-  height: 200px;
-  z-index: 15;
-  top: 50%;
-  left: 50%;
-  margin: -100px 0 0 -150px;
+  margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .customNavbar {
@@ -77,3 +75,9 @@ footer {
 .site-text {
 	color: #ffffff
 }
+
+/*.container {
+    border:5px;
+    border-style:ridge;
+    border-color: rgba(58, 42, 69, 1);
+}*/

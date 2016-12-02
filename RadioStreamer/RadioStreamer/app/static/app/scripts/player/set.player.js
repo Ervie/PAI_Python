@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
 
     var stream = {
-        title: "Touhou Radio",
-        mp3: "http://37.59.41.178:8000/;stream/1"
+        title: "Gensokyo Radio",
+    mp3: "http://stream.gensokyoradio.net:8000/stream/1/"
     },
             ready = false;
 
@@ -29,6 +29,8 @@
         smoothPlayBar: true,
         keyEnabled: true
     });
+
+    $("#currentChannelLogo").attr('src', "static/app/image/icons/gensokyo.png");
 });
 
 $(document).ready(function () {
@@ -41,19 +43,24 @@ $(document).ready(function () {
 				title: "RMF Classic",
 				mp3: "http://195.150.20.243:8000/rmf_classic"
 			}
+			imgSrc = "static/app/image/icons/classic.png"
+
 		} else if (RandomNumber > 0.33) {
 			var stream = {
-				title: "Touhou Radio",
-				mp3: "http://37.59.41.178:8000/;stream/1"
+				title: "Gensokyo Radio",
+				mp3: "http://stream.gensokyoradio.net:8000/stream/1/"
 			}
+			imgSrc = "static/app/image/icons/gensokyo.png"
 		} else {
 			var stream = {
 				title: "RMF Game Music",
 				mp3: "http://185.69.192.87/GAMEMUSIC"
 			}
+			imgSrc = "static/app/image/icons/gamemusic.png"
 		}
 
 		$('#jquery_jplayer_1').jPlayer('setMedia', stream);
+		$("#currentChannelLogo").attr('src', imgSrc);
 		
 	});
 });
