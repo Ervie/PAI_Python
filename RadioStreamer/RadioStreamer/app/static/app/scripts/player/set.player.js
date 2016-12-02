@@ -53,9 +53,6 @@ $(document).ready(function () {
 			}
 		}
 
-		
-
-		
 		$('#jquery_jplayer_1').jPlayer('setMedia', stream);
 		
 	});

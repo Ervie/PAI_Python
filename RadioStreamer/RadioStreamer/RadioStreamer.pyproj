@@ -60,9 +60,12 @@
     <Content Include="app\static\app\image\jplayer.pink.flag.video.play.png" />
     <Content Include="app\static\app\content\player\jplayer.pink.flag.css" />
     <Content Include="app\static\app\content\player\jplayer.pink.flag.min.css" />
+    <Content Include="app\static\app\image\waterStream.png" />
+    <Content Include="app\static\app\scripts\player\gui-components.js" />
     <Content Include="app\static\app\scripts\player\jquery.jplayer.js" />
     <Content Include="app\static\app\scripts\player\jquery.jplayer.min.js" />
     <Content Include="app\static\app\scripts\player\jquery.jplayer.swf" />
+    <Content Include="app\static\app\scripts\player\login.js" />
     <Content Include="app\static\app\scripts\player\set.player.js" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
@@ -89,7 +92,6 @@
     <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
     <Content Include="app\templates\app\about.html" />
-    <Content Include="app\templates\app\contact.html" />
     <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
