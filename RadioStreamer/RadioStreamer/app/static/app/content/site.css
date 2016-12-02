@@ -2,7 +2,7 @@
     padding-top: 50px;
     padding-bottom: 20px;
 	background-size : 100% auto;
-	margin: 0 0 30px 0 /* miejsce na footer*/
+	margin: 0 0 75px 0 /* miejsce na footer*/
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -54,7 +54,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .customNavbar {
-   background: rgba(58, 42, 69, 1);  /* fallback for older browsers */
+   background: rgba(58, 42, 69, 1);
 }
 
 .myNavbarElement {
@@ -70,10 +70,10 @@ footer {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 30px;
+    height: 75px;
     width: 100%;
 }
 
-.footer-text {
+.site-text {
 	color: #ffffff
 }

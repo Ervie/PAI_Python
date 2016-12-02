@@ -1,11 +1,12 @@
-"""
+﻿"""
 Definition of views.
 """
-
+from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+
 
 def home(request):
     """Renders the home page."""
@@ -22,6 +23,7 @@ def home(request):
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
+
     return render(
         request,
         'app/about.html',

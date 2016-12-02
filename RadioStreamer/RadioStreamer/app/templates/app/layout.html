@@ -24,23 +24,21 @@
 
 <body background ="{% static 'app/image/bg.jpg' %} ">
     <div class="navbar navbar-inverse navbar-fixed-top customNavbar">
-        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-				<a href="/"><img border="0" class="myNavbarElement" alt="Radio Streamer" src="{% static 'app/image/waterStream.png' %}"></ width="48" height="48"></a>
+				<a href="/"><img border="0" class="myNavbarElement" alt="Radio Streamer" src="{% static 'app/image/waterStream.png' %}" width="48" height="48" /></a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-left">
                     <li><a class="myNavbarElement "href="{% url 'about' %}">O aplikacji</a></li>
-					<li><button id="ChangeChannelBtn" class="btn btn-info myNavbarElement myNavbarBtn">Losowa stacja</button></li>
+					<li><p class="navbar-btn"><<button id="ChangeChannelBtn" class="btn btn-info myNavbarElement myNavbarBtn">Losowa stacja</button></p></li>
                 </ul>
                 {% include 'app/loginpartial.html' %}
             </div>
-        </div>
     </div>
 
 
@@ -48,9 +46,10 @@
     <div class="container body-content">
 {% block content %}{% endblock %}
 
-        <hr/>
+        
         <footer class="footer">
-            <p class="footer-text">&copy; {{ year }} - Radio Streamer</p>
+            <hr/>
+            <p class="site-text">&copy; {{ year }} - Radio Streamer</p>
         </footer>
     </div>
 
