@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿// Ustawianie playera
+$(document).ready(function () {
 
     var stream = {
         title: "Gensokyo Radio",
@@ -33,6 +34,7 @@
     $("#currentChannelLogo").attr('src', "static/app/image/icons/gensokyo.png");
 });
 
+// Przedładowania stacji
 $(document).ready(function () {
 	$("#ChangeChannelBtn").click(function () {
 
@@ -64,3 +66,19 @@ $(document).ready(function () {
 		
 	});
 });
+
+// Wczytywanie meta co 10 sekund
+$(document).ready(function () {
+
+    setInterval(refreshMeta, 3000)
+
+});
+
+function refreshMeta() {
+    $.ajax({
+        url: 'metadata',
+        success: function (data) {
+            $('#jp-meta').html(data);
+        }
+    })
+};

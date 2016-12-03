@@ -34,6 +34,12 @@
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
     <Compile Include="manage.py" />
+    <Compile Include="RadioStreamer\utils\MetadataWorker.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RadioStreamer\utils\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RadioStreamer\__init__.py" />
     <Compile Include="RadioStreamer\settings.py" />
     <Compile Include="RadioStreamer\urls.py" />
@@ -54,9 +60,9 @@
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="RadioStreamer\" />
+    <Folder Include="RadioStreamer\utils\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\static\app\image\Icons\9VpktkpTURBXy8xYzAyNmRmYWVhZjgwOTVkNGQ5ZDg0YzllMGIxZWI5ZC5qcGeSlQMADM0CWs0BUpMFzQMgzQHC.jpg" />
     <Content Include="app\static\app\image\Icons\classic.png" />
     <Content Include="app\static\app\image\Icons\gamemusic.png" />
     <Content Include="app\static\app\image\Icons\gensokyo.png" />
@@ -72,6 +78,7 @@
     <Content Include="app\static\app\scripts\player\jquery.jplayer.swf" />
     <Content Include="app\static\app\scripts\player\login.js" />
     <Content Include="app\static\app\scripts\player\set.player.js" />
+    <Content Include="app\templates\app\metadata.html" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
