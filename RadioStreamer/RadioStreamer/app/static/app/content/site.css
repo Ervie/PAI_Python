@@ -90,7 +90,14 @@ footer {
 }
 
 .suggestion {
-    margin: 20px auto 20px auto
+    margin: 20px auto 20px auto;
+    opacity: 1;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+.suggestion:hover {
+    opacity: 0.5;
 }
 
 .suggestionImage {
