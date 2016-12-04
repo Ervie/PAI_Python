@@ -4618,7 +4618,7 @@ if ( !getSetAttribute ) {
 		}
 	};
 
-	// Set width and height to auto instead of 0 on empty string( Bug #8150 )
+	// Set width and height to auto instead of 0 on empty string( Bug #8120 )
 	// This is for removals
 	jQuery.each([ "width", "height" ], function( i, name ) {
 		jQuery.attrHooks[ name ] = {
@@ -5547,7 +5547,7 @@ if ( !jQuery.support.changeBubbles ) {
 						if ( this._just_changed && !event.isTrigger ) {
 							this._just_changed = false;
 						}
-						// Allow triggered, simulated change events (#11500)
+						// Allow triggered, simulated change events (#11200)
 						jQuery.event.simulate( "change", this, event, true );
 					});
 				}

@@ -1,0 +1,34 @@
+﻿ <aside id="sidebar">
+
+     <div class="suggestions">
+         
+          <!--Czit -> przypisywanie wartości z Django, aby jQuery mogło sobie je pobrać-->
+         <script type="text/javascript">
+              $('body').data('firstImagePath', "{{firstImagePath}}");
+              $('body').data('firstChannelName', "{{firstChannelName}}");
+              $('body').data('firstChannelUrl', "{{firstChannelUrl}}");
+
+              $('body').data('secondImagePath', "{{secondImagePath}}");
+              $('body').data('secondChannelName', "{{secondChannelName}}");
+              $('body').data('secondChannelUrl', "{{secondChannelUrl}}");
+
+              $('body').data('thirdImagePath', "{{thirdImagePath}}");
+              $('body').data('thirdChannelName', "{{thirdChannelName}}");
+              $('body').data('thirdChannelUrl', "{{thirdChannelUrl}}");
+        </script>
+
+        <div class="site-text"><h4>Polecane dla Ciebie:</h4></div>
+
+         <div class="suggestion ">
+            <img id="firstSuggestion" class="suggestionImage" src="{{ firstImagePathSmall }}" />
+        </div>
+
+         <div class="suggestion ">
+            <img id="secondSuggestion" class="suggestionImage" src="{{ secondImagePathSmall }}" />
+        </div>
+
+         <div class="suggestion ">
+            <img id="thirdSuggestion" class="suggestionImage" src="{{ thirdImagePathSmall }}" />
+        </div>
+     </div>
+</aside>

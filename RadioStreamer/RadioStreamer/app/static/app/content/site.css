@@ -76,8 +76,37 @@ footer {
 	color: #ffffff
 }
 
-/*.container {
-    border:5px;
-    border-style:ridge;
-    border-color: rgba(58, 42, 69, 1);
-}*/
+/***************Sidebar z propozycjami*********************/
+
+#sidebar {
+    float: right;
+    width: 200px;
+    top: 50%;
+    text-align:center;
+}
+
+.suggestions {
+    vertical-align: middle;
+}
+
+.suggestion {
+    margin: 20px auto 20px auto
+}
+
+.suggestionImage {
+    padding:1px;
+    border-width: 8px;
+    border-style: outset;
+}
+
+#firstSuggestion {
+    border-color: rgba(192, 168, 104, 1)
+}
+
+#secondSuggestion {
+    border-color: rgba(151, 151, 168, 1)
+}
+
+#thirdSuggestion {
+    border-color: rgba(205, 115, 0, 1)
+}

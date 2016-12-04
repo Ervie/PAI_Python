@@ -2972,7 +2972,7 @@ input[type="button"].btn-block {
 }
 
 .glyphicon-sort:before {
-  content: "\e150";
+  content: "\e120";
 }
 
 .glyphicon-sort-by-alphabet:before {

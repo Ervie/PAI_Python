@@ -1,4 +1,7 @@
-﻿// Ustawianie playera
+﻿// zmienna globalna zawierająca adres radia
+var currentChannelUrl;
+
+// Ustawianie playera
 $(document).ready(function () {
 
     var stream = {
@@ -31,7 +34,9 @@ $(document).ready(function () {
         keyEnabled: true
     });
 
-    $("#currentChannelLogo").attr('src', "static/app/image/icons/gensokyo.png");
+    $("#currentChannelLogo").attr('src', "static/app/image/icons/300px/gensokyo.png");
+
+    currentChannelUrl = "http://stream.gensokyoradio.net:8000/stream/1/"
 });
 
 // Przedładowania stacji
@@ -45,29 +50,30 @@ $(document).ready(function () {
 				title: "RMF Classic",
 				mp3: "http://195.150.20.243:8000/rmf_classic"
 			}
-			imgSrc = "static/app/image/icons/classic.png"
+			imgSrc = "static/app/image/icons/300px/classic.png"
 
 		} else if (RandomNumber > 0.33) {
 			var stream = {
 				title: "Gensokyo Radio",
 				mp3: "http://stream.gensokyoradio.net:8000/stream/1/"
 			}
-			imgSrc = "static/app/image/icons/gensokyo.png"
+			imgSrc = "static/app/image/icons/300px/gensokyo.png"
 		} else {
 			var stream = {
-				title: "RMF Game Music",
-				mp3: "http://185.69.192.87/GAMEMUSIC"
+				title: "VGM Radio",
+				mp3: "http://radio.vgmradio.com:8040/stream"
 			}
-			imgSrc = "static/app/image/icons/gamemusic.png"
+			imgSrc = "static/app/image/icons/300px/vgm.png"
 		}
 
 		$('#jquery_jplayer_1').jPlayer('setMedia', stream);
 		$("#currentChannelLogo").attr('src', imgSrc);
 		
+		currentChannelUrl = stream.mp3
 	});
 });
 
-// Wczytywanie meta co 10 sekund
+// Wczytywanie meta co 3 sekund
 $(document).ready(function () {
 
     setInterval(refreshMeta, 3000)
@@ -77,6 +83,10 @@ $(document).ready(function () {
 function refreshMeta() {
     $.ajax({
         url: 'metadata',
+        type: "POST",
+        data: {
+            'currentChannelUrl': currentChannelUrl,
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},
         success: function (data) {
             $('#jp-meta').html(data);
         }

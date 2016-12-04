@@ -137,7 +137,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.support.transition && $parent.hasClass('fade') ?
       $parent
         .one($.support.transition.end, removeElement)
-        .emulateTransitionEnd(150) :
+        .emulateTransitionEnd(120) :
       removeElement()
   }
 
@@ -1015,7 +1015,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       doAnimate ?
         this.$backdrop
           .one($.support.transition.end, callback)
-          .emulateTransitionEnd(150) :
+          .emulateTransitionEnd(120) :
         callback()
 
     } else if (!this.isShown && this.$backdrop) {
@@ -1024,7 +1024,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
       $.support.transition && this.$element.hasClass('fade')?
         this.$backdrop
           .one($.support.transition.end, callback)
-          .emulateTransitionEnd(150) :
+          .emulateTransitionEnd(120) :
         callback()
 
     } else if (callback) {
@@ -1361,7 +1361,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     $.support.transition && this.$tip.hasClass('fade') ?
       $tip
         .one($.support.transition.end, complete)
-        .emulateTransitionEnd(150) :
+        .emulateTransitionEnd(120) :
       complete()
 
     this.$element.trigger('hidden.bs.' + this.type)
@@ -1842,7 +1842,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     transition ?
       $active
         .one($.support.transition.end, next)
-        .emulateTransitionEnd(150) :
+        .emulateTransitionEnd(120) :
       next()
 
     $active.removeClass('in')
