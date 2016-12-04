@@ -12,9 +12,6 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
 
-    #worker = MW.MetadataWorker()
-    #worker.startWorking();
-
     return render(
         request,
         'app/index.html',
@@ -34,7 +31,7 @@ def metadata(request):
         request,
         'app/metadata.html', 
             {
-                'message': newMetadata,
+                'metadata': newMetadata,
             }
         )
 

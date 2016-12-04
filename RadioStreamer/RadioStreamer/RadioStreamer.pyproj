@@ -77,6 +77,7 @@
     <Content Include="app\static\app\scripts\player\jquery.jplayer.min.js" />
     <Content Include="app\static\app\scripts\player\jquery.jplayer.swf" />
     <Content Include="app\static\app\scripts\player\login.js" />
+    <Content Include="app\static\app\scripts\player\marquee.js" />
     <Content Include="app\static\app\scripts\player\set.player.js" />
     <Content Include="app\templates\app\metadata.html" />
     <Content Include="requirements.txt" />

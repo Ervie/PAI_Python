@@ -423,7 +423,8 @@ div.jp-video .jp-progress {
 /* @end */
 /* @group playlist */
 .jp-details {
-  font-size: .7em;
+  font-size: 16px;
+  text-align: center;
   margin: 0;
   padding: 0; }
 
