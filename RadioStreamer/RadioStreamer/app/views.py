@@ -25,7 +25,6 @@ def metadata(request):
 
     channelUrl = request.POST['currentChannelUrl'] 
 
-    # ToDo: wczytać obiekt obecnego radia i na jego podstawie pobrać meta
     worker = MW.MetadataWorker()
 
     newMetadata = worker.sendRequest(channelUrl);
@@ -70,7 +69,7 @@ def sidebar(request):
                 'secondChannelUrl': "http://stream.gensokyoradio.net:8000/stream/1/",
                 'thirdImagePath': "static/app/image/icons/300px/vgm.png",
                 'thirdImagePathSmall': "static/app/image/icons/120px/vgm120.png",
-                'thirdChannelName': "RMF Game Music",
+                'thirdChannelName': "VGM Radio",
                 'thirdChannelUrl': "http://radio.vgmradio.com:8040/stream",
             }
         )
