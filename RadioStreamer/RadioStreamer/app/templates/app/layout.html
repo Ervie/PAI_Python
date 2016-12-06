@@ -43,7 +43,7 @@
     </div>
 
     
-{% include "app/sidebarPartial.html" %}
+
 
     <div class="container body-content">
 {% block content %}{% endblock %}
@@ -55,6 +55,7 @@
         </footer>
     </div>
 
+{% block sidebar %}{% endblock %}
     
 </body>
 </html>
