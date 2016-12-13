@@ -37,3 +37,16 @@ D:\Biblioteki\Trimack\Pulpit\studia\PAI\PAI_Python\RadioStreamer\RadioStreamer\b
 D:\Biblioteki\Trimack\Pulpit\studia\PAI\PAI_Python\RadioStreamer\RadioStreamer\bin\wfastcgi.py
 D:\Biblioteki\Trimack\Pulpit\studia\PAI\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\web.config
 D:\Biblioteki\Trimack\Pulpit\studia\PAI\PAI_Python\RadioStreamer\RadioStreamer\obj\Debug\web.debug.config
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\attach_server.py
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\visualstudio_py_debugger.py
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\visualstudio_py_repl.py
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\visualstudio_py_util.py
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\__init__.py
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\__main__.py
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\bin\AzureSetup.cfg
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\bin\Microsoft.PythonTools.AzureSetup.exe
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\bin\Microsoft.PythonTools.AzureSetup.exe.config
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\bin\wfastcgi.py
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\web.config
+C:\Users\wojci\Documents\PAI\RadioStreamer\RadioStreamer\obj\Debug\web.debug.config
