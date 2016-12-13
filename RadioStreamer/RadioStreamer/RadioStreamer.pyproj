@@ -29,7 +29,7 @@
   <ItemGroup>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
-    <Compile Include="app\dbServices.py">
+    <Compile Include="RadioStreamer\database\services\dbServices.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\tests.py" />
@@ -37,6 +37,12 @@
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
     <Compile Include="manage.py" />
+    <Compile Include="RadioStreamer\database\services\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RadioStreamer\database\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RadioStreamer\utils\MetadataWorker.py">
       <SubType>Code</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="RadioStreamer\" />
+    <Folder Include="RadioStreamer\database\" />
+    <Folder Include="RadioStreamer\database\scripts\" />
+    <Folder Include="RadioStreamer\database\services\" />
     <Folder Include="RadioStreamer\utils\" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +93,7 @@
     <Content Include="app\static\app\scripts\player\set.player.js" />
     <Content Include="app\templates\app\metadata.html" />
     <Content Include="app\templates\app\sidebarPartial.html" />
+    <Content Include="RadioStreamer\database\scripts\001_createDatabase.sql" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
