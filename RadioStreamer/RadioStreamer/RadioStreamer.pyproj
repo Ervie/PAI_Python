@@ -29,7 +29,7 @@
   <ItemGroup>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
-    <Compile Include="app\dbServices.py">
+    <Compile Include="RadioStreamer\database\services\dbServices.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\tests.py" />
@@ -37,6 +37,12 @@
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
     <Compile Include="manage.py" />
+    <Compile Include="RadioStreamer\database\services\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RadioStreamer\database\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RadioStreamer\utils\MetadataWorker.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,17 +64,28 @@
     <Folder Include="app\static\app\content\" />
     <Folder Include="app\static\app\fonts\" />
     <Folder Include="app\static\app\image\Icons\" />
+    <Folder Include="app\static\app\image\Icons\120px\" />
+    <Folder Include="app\static\app\image\Icons\300px\" />
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\static\app\scripts\player\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="RadioStreamer\" />
+    <Folder Include="RadioStreamer\database\" />
+    <Folder Include="RadioStreamer\database\scripts\" />
+    <Folder Include="RadioStreamer\database\services\" />
     <Folder Include="RadioStreamer\utils\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\static\app\image\Icons\classic.png" />
-    <Content Include="app\static\app\image\Icons\gamemusic.png" />
-    <Content Include="app\static\app\image\Icons\gensokyo.png" />
+    <Content Include="app\static\app\image\Icons\120px\classic120.png" />
+    <Content Include="app\static\app\image\Icons\120px\gamemusic120.png" />
+    <Content Include="app\static\app\image\Icons\120px\gensokyo120.png" />
+    <Content Include="app\static\app\image\Icons\120px\vgm120.png" />
+    <Content Include="app\static\app\image\Icons\300px\classic.png" />
+    <Content Include="app\static\app\image\Icons\300px\gamemusic.png" />
+    <Content Include="app\static\app\image\Icons\300px\gensokyo.png" />
+    <Content Include="app\static\app\image\Icons\300px\placeholder.png" />
+    <Content Include="app\static\app\image\Icons\300px\vgm.png" />
     <Content Include="app\static\app\image\jplayer.pink.flag.jpg" />
     <Content Include="app\static\app\image\jplayer.pink.flag.seeking.gif" />
     <Content Include="app\static\app\image\jplayer.pink.flag.video.play.png" />
@@ -84,6 +101,7 @@
     <Content Include="app\static\app\scripts\player\set.player.js" />
     <Content Include="app\templates\app\metadata.html" />
     <Content Include="app\templates\app\sidebarPartial.html" />
+    <Content Include="RadioStreamer\database\scripts\001_createDatabase.sql" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
