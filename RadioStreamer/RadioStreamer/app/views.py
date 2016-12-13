@@ -6,8 +6,10 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
-from RadioStreamer.utils import MetadataWorker as MW 
-
+from RadioStreamer.utils import MetadataWorker as MW
+#--
+from app.dbServices import dbServices
+#--
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
@@ -40,6 +42,29 @@ def metadata(request):
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
+
+    # ----------------- przykladowe operacja na bazie. Do usunięcia
+    db = dbServices()
+    user = db.get_user("Forczu")
+    channel = db.get_channel("Radio Wpierdol")
+    tags = db.get_tags()
+    rating = db.get_rating(user.login, channel.name)
+
+    if (user.login == ""):
+        user = db.insert_user("Forczu", "Kotori1", "asdf12345", "tenshissienanawi104@gmail.com")
+    if (channel.name == ""):
+        channel = db.insert_channel("Radio Wpierdol", "http://spinka.cupsell.pl/", "https://www.youtube.com/user/SPInkafilmstudio/videos")
+    if (tags.count() == 0):
+        db.add_tag("xxx")
+    if (rating.value == None):
+        db.add_rating(user.login, channel.name, 9)
+
+    favs = db.get_favs(user.login)
+    
+    if (favs.count() == 0):
+        favs = db.add_fav(user.login, channel.name)
+    # -----------------
+
 
     return render(
         request,
