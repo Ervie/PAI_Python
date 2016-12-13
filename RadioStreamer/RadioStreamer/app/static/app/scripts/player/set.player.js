@@ -5,8 +5,8 @@ var currentChannelUrl;
 $(document).ready(function () {
 
     var stream = {
-        title: "Gensokyo Radio",
-    mp3: "http://stream.gensokyoradio.net:8000/stream/1/"
+        title: "",
+        mp3: ""
     },
             ready = false;
 
@@ -16,7 +16,6 @@ $(document).ready(function () {
             $(this).jPlayer("setMedia", stream);
         },
         pause: function () {
-            $(this).jPlayer("clearMedia");
         },
         error: function (event) {
             if (ready && event.jPlayer.error.type === $.jPlayer.error.URL_NOT_SET) {
@@ -34,11 +33,21 @@ $(document).ready(function () {
         keyEnabled: true
     });
 
-    $("#currentChannelLogo").attr('src', "static/app/image/icons/300px/gensokyo.png");
+    $("#currentChannelLogo").attr('src', "static/app/image/icons/300px/placeholder.png");
 
-    currentChannelUrl = "http://stream.gensokyoradio.net:8000/stream/1/"
+    currentChannelUrl = ""
 });
 
+// Reset Stacji
+//$(this).jPlayer("clearMedia");
+$(document).ready(function () {
+    $("#MediaResetBtn").click(function () {
+        $('#jquery_jplayer_1').jPlayer('clearMedia');
+        $("#currentChannelLogo").attr('src', "static/app/image/icons/300px/placeholder.png");
+        currentChannelUrl = ""
+    });
+});
+    
 // Przedładowania stacji
 $(document).ready(function () {
 	$("#ChangeChannelBtn").click(function () {
