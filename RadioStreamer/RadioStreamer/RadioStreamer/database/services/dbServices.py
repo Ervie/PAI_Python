@@ -1,4 +1,5 @@
 import app.models as Models
+import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import ProgrammingError
 
@@ -29,6 +30,19 @@ class dbServices(object):
 
         Models.Favourites.objects.create(person = user, channel = chn)
     
+	# Add history log
+    def add_history_log(self, userLogin= "", channelName ="", start = datetime.MINYEAR, end = datetime.MINYEAR, duration = 0):
+        user = self.get_user(userLogin)
+        chn = self.get_channel(channelName)
+        startDate = start
+        endDate = end
+        dur = duration
+
+        if (user.id is not None and chn.id is not None):
+             return Models.History.objects.create(person = user, channel = chn, start_date = startDate, end_date = endDate, duration = dur);
+
+
+
     # Gets user with specified login
     def get_user(self, login=""):
         try:

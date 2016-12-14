@@ -1,5 +1,9 @@
 ﻿// zmienna globalna zawierająca adres radia
 var currentChannelUrl;
+// zmienna globalna zawierająca adres radia
+var currentChannelName;
+// zmienna globalna przechowująca moment rozpoczęcia słuchania nowego utworu
+var startDate;
 
 // Ustawianie playera
 $(document).ready(function () {
@@ -12,7 +16,8 @@ $(document).ready(function () {
 
     $("#jquery_jplayer_1").jPlayer({
         ready: function (event) {
-            ready = true;
+        	ready = true;
+        	startDate = new Date();
             $(this).jPlayer("setMedia", stream);
         },
         pause: function () {
@@ -36,6 +41,7 @@ $(document).ready(function () {
     $("#currentChannelLogo").attr('src', "static/app/image/icons/300px/placeholder.png");
 
     currentChannelUrl = ""
+    currentChannelName = ""
 });
 
 // Reset Stacji
@@ -44,7 +50,9 @@ $(document).ready(function () {
     $("#MediaResetBtn").click(function () {
         $('#jquery_jplayer_1').jPlayer('clearMedia');
         $("#currentChannelLogo").attr('src', "static/app/image/icons/300px/placeholder.png");
+        logListeningTime();
         currentChannelUrl = ""
+        currentChannelName = ""
     });
 });
     
@@ -75,10 +83,13 @@ $(document).ready(function () {
 			imgSrc = "static/app/image/icons/300px/vgm.png"
 		}
 
+		logListeningTime();
 		$('#jquery_jplayer_1').jPlayer('setMedia', stream);
 		$("#currentChannelLogo").attr('src', imgSrc);
-		
-		currentChannelUrl = stream.mp3
+
+		startDate = new Date();
+		currentChannelName = stream.title;
+		currentChannelUrl = stream.mp3;
 	});
 });
 
@@ -101,3 +112,24 @@ function refreshMeta() {
         }
     })
 };
+
+function logListeningTime() {
+
+	endDate = new Date();
+	endDateISO = endDate.toISOString();
+	startDateISO = startDate.toISOString();
+
+	$.ajax({
+		url: 'logTime',
+		type: "POST",
+		data: {
+			'currentChannelName': currentChannelName,
+			'startTimestamp': startDateISO,
+			'endTimestamp': endDateISO,
+			'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+		},
+		success: function (data) {
+			$('#jp-meta').html(data);
+		}
+	})
+}

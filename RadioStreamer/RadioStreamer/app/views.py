@@ -6,9 +6,10 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+import json
 
 from RadioStreamer.utils import MetadataWorker as MW
-from RadioStreamer.database import services
+from RadioStreamer.database.services import dbServices
 
 
 def home(request):
@@ -81,6 +82,41 @@ def sidebar(request):
 
     # ToDo: Logika do polecanek: wczytać obiekty typu channel z DB i załadować nazwę i url, ścieżki do obrazków wziąć na podstawie nazwy stacji. Algorytm w osobnej klasie (tagi, historia odsłuchań itp.). Można odliczyć ulubione.
 
+    return render(
+        request,
+        'app/sidebarPartial.html', 
+            {
+                'firstImagePath': "static/app/image/icons/300px/classic.png",
+                'firstImagePathSmall': "static/app/image/icons/120px/classic120.png",
+                'firstChannelName': "RMF Classic",
+                'firstChannelUrl': "http://195.150.20.243:8000/rmf_classic",
+                'secondImagePath': "static/app/image/icons/300px/gensokyo.png",
+                'secondImagePathSmall': "static/app/image/icons/120px/gensokyo120.png",
+                'secondChannelName': "Gensokyo Radio",
+                'secondChannelUrl': "http://stream.gensokyoradio.net:8000/stream/1/",
+                'thirdImagePath': "static/app/image/icons/300px/vgm.png",
+                'thirdImagePathSmall': "static/app/image/icons/120px/vgm120.png",
+                'thirdChannelName': "VGM Radio",
+                'thirdChannelUrl': "http://radio.vgmradio.com:8040/stream",
+            }
+        )
+
+def logTime(request):
+
+	# ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
+	#username = None
+	#if request.user.is_authenticated():
+		#username = request.user.username
+
+    db = dbServices.dbServices()
+
+    channelName = request.POST['currentChannelName'] 
+    start = datetime.strptime(request.POST['startTimestamp'], '%Y-%m-%dT%H:%M:%S.%fZ');
+    end = datetime.strptime(request.POST['endTimestamp'], '%Y-%m-%dT%H:%M:%S.%fZ');
+    duration = abs((end - start).seconds);
+    db.add_history_log("Forczu", channelName, start, end);
+
+	#hotfix, jeszcze nie wiem jak pusteg rendera/response posłać
     return render(
         request,
         'app/sidebarPartial.html', 

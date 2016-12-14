@@ -22,6 +22,7 @@ function refreshSuggestions() {
 $(document).ready(function () {
     $('body').on('click','#firstSuggestion', function () {
 
+		
         var stream = {
             title: $('body').data('firstChannelName'),
             mp3: $('body').data('firstChannelUrl')
@@ -32,8 +33,10 @@ $(document).ready(function () {
         $('#jquery_jplayer_1').jPlayer('setMedia', stream);
         $("#currentChannelLogo").attr('src', imgSrc);
 
-
-        currentChannelUrl = $('body').data('firstChannelUrl')
+        logListeningTime();
+        startDate = new Date();
+        currentChannelUrl = $('body').data('firstChannelUrl');
+        currentChannelName = $('body').data('firstChannelName');
     });
 });
 
@@ -51,7 +54,10 @@ $(document).ready(function () {
         $('#jquery_jplayer_1').jPlayer('setMedia', stream);
         $("#currentChannelLogo").attr('src', imgSrc);
 
-        currentChannelUrl = $('body').data('secondChannelUrl')
+        logListeningTime();
+        startDate = new Date();
+        currentChannelUrl = $('body').data('secondChannelUrl');
+        currentChannelName = $('body').data('secondChannelName');
     });
 });
 
@@ -69,6 +75,29 @@ $(document).ready(function () {
         $('#jquery_jplayer_1').jPlayer('setMedia', stream);
         $("#currentChannelLogo").attr('src', imgSrc);
 
-        currentChannelUrl = $('body').data('thirdChannelUrl')
+        logListeningTime();
+        startDate = new Date();
+        currentChannelUrl = $('body').data('thirdChannelUrl');
+        currentChannelName = $('body').data('thirdChannelName');
     });
 });
+
+function logListeningTime() {
+	endDate = new Date();
+	endDateISO = endDate.toISOString();
+	startDateISO = startDate.toISOString();
+
+	$.ajax({
+		url: 'logTime',
+		type: "POST",
+		data: {
+			'currentChannelName': currentChannelName,
+			'startTimestamp': startDateISO,
+			'endTimestamp': endDateISO,
+			'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+		},
+		success: function (data) {
+			$('#jp-meta').html(data);
+		}
+	})
+}
