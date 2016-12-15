@@ -77,6 +77,8 @@
     <Folder Include="RadioStreamer\utils\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\content\player\star-rating.css" />
+    <Content Include="app\static\app\content\player\star-rating.min.css" />
     <Content Include="app\static\app\image\Icons\120px\classic120.png" />
     <Content Include="app\static\app\image\Icons\120px\gamemusic120.png" />
     <Content Include="app\static\app\image\Icons\120px\gensokyo120.png" />
@@ -91,6 +93,7 @@
     <Content Include="app\static\app\image\jplayer.pink.flag.video.play.png" />
     <Content Include="app\static\app\content\player\jplayer.pink.flag.css" />
     <Content Include="app\static\app\content\player\jplayer.pink.flag.min.css" />
+    <Content Include="app\static\app\image\loading.gif" />
     <Content Include="app\static\app\image\waterStream.png" />
     <Content Include="app\static\app\scripts\player\gui-components.js" />
     <Content Include="app\static\app\scripts\player\jquery.jplayer.js" />
@@ -99,6 +102,8 @@
     <Content Include="app\static\app\scripts\player\login.js" />
     <Content Include="app\static\app\scripts\player\marquee.js" />
     <Content Include="app\static\app\scripts\player\set.player.js" />
+    <Content Include="app\static\app\scripts\player\star-rating.js" />
+    <Content Include="app\static\app\scripts\player\star-rating.min.js" />
     <Content Include="app\templates\app\metadata.html" />
     <Content Include="app\templates\app\sidebarPartial.html" />
     <Content Include="RadioStreamer\database\scripts\001_createDatabase.sql" />

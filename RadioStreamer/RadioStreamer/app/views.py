@@ -26,12 +26,14 @@ def home(request):
     )
 
 def metadata(request):
-
+    """Odświeżanie widoku metadanych"""
     channelUrl = request.POST['currentChannelUrl'] 
 
-    worker = MW.MetadataWorker()
-
-    newMetadata = worker.sendRequest(channelUrl);
+    newMetadata = "";
+    
+    if not (channelUrl == ""):
+        worker = MW.MetadataWorker();
+        newMetadata = worker.sendRequest(channelUrl);
 
     return render(
         request,
@@ -79,7 +81,7 @@ def about(request):
     )
 
 def sidebar(request):
-
+    """Odświeżanie sidebara z polecankami"""
     # ToDo: Logika do polecanek: wczytać obiekty typu channel z DB i załadować nazwę i url, ścieżki do obrazków wziąć na podstawie nazwy stacji. Algorytm w osobnej klasie (tagi, historia odsłuchań itp.). Można odliczyć ulubione.
 
     return render(
@@ -117,4 +119,5 @@ def logTime(request):
     db.add_history_log("Forczu", channelName, start, end);
 
     return HttpResponse(status=204)
+
 

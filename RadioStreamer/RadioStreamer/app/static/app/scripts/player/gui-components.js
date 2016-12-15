@@ -77,6 +77,7 @@ $(document).ready(function () {
     });
 });
 
+// Logowanie historii
 function logListeningTime() {
 	endDate = new Date();
 	endDateISO = endDate.toISOString();
@@ -96,3 +97,20 @@ function logListeningTime() {
 		}
 	})
 }
+
+// Inicjalizacja ratingu
+$(document).ready(function () {
+	$('#userStarRating').rating({ 
+		hoverEnabled: false,
+		showCaption: false
+	});
+});
+
+// Zmiana ratingu
+$(document).on('ready', function () {
+	$("#userStarRating").rating().on("rating.clear", function (event) {
+		alert("Your rating is reset")
+	}).on("rating.change", function (event, value, caption) {
+		alert("You rated: " + value + " = " + $(caption).text());
+	});
+});

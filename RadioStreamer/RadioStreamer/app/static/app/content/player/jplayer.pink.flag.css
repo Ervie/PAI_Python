@@ -106,10 +106,10 @@
   overflow: hidden; }
 
 .jp-audio .jp-controls-holder {
-  height: 80px; }
+  height: 40px; }
 
 .jp-audio-stream .jp-controls-holder {
-  height: 50px; }
+  height: 40px; }
 
 .jp-controls {
   background: url("../../image/jplayer.pink.flag.jpg") 0 0 no-repeat;
