@@ -43,6 +43,7 @@ $(document).ready(function () {
 
     $("#currentChannelLogo").attr('src', "static/app/image/icons/300px/placeholder.png");
 
+    startDate = new Date();
     currentChannelUrl = ""
     currentChannelName = ""
 });

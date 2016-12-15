@@ -77,27 +77,6 @@ $(document).ready(function () {
     });
 });
 
-// Logowanie historii
-function logListeningTime() {
-	endDate = new Date();
-	endDateISO = endDate.toISOString();
-	startDateISO = startDate.toISOString();
-
-	$.ajax({
-		url: 'logTime',
-		type: "POST",
-		data: {
-			'currentChannelName': currentChannelName,
-			'startTimestamp': startDateISO,
-			'endTimestamp': endDateISO,
-			'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
-		},
-		success: function (data) {
-			$('#jp-meta').html(data);
-		}
-	})
-}
-
 // Inicjalizacja ratingu
 $(document).ready(function () {
 	$('#userStarRating').rating({ 
@@ -110,7 +89,7 @@ $(document).ready(function () {
 $(document).on('ready', function () {
 	$("#userStarRating").rating().on("rating.clear", function (event) {
 		alert("Your rating is reset")
-	}).on("rating.change", function (event, value, caption) {
-		alert("You rated: " + value + " = " + $(caption).text());
+	}).on("rating.change", function (event, value) {
+		alert("You rated: " + value);
 	});
 });
