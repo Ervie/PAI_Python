@@ -3,7 +3,7 @@ Definition of views.
 """
 from __future__ import unicode_literals
 from django.shortcuts import render, render_to_response
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.template import RequestContext
 from datetime import datetime
 import json
@@ -116,22 +116,5 @@ def logTime(request):
     duration = abs((end - start).seconds);
     db.add_history_log("Forczu", channelName, start, end);
 
-	#hotfix, jeszcze nie wiem jak pusteg rendera/response posłać
-    return render(
-        request,
-        'app/sidebarPartial.html', 
-            {
-                'firstImagePath': "static/app/image/icons/300px/classic.png",
-                'firstImagePathSmall': "static/app/image/icons/120px/classic120.png",
-                'firstChannelName': "RMF Classic",
-                'firstChannelUrl': "http://195.150.20.243:8000/rmf_classic",
-                'secondImagePath': "static/app/image/icons/300px/gensokyo.png",
-                'secondImagePathSmall': "static/app/image/icons/120px/gensokyo120.png",
-                'secondChannelName': "Gensokyo Radio",
-                'secondChannelUrl': "http://stream.gensokyoradio.net:8000/stream/1/",
-                'thirdImagePath': "static/app/image/icons/300px/vgm.png",
-                'thirdImagePathSmall': "static/app/image/icons/120px/vgm120.png",
-                'thirdChannelName': "VGM Radio",
-                'thirdChannelUrl': "http://radio.vgmradio.com:8040/stream",
-            }
-        )
+    return HttpResponse(status=204)
+

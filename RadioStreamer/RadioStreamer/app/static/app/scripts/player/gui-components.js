@@ -4,9 +4,7 @@ $(document).ready(function () {
     // pierwszy raz od razu przy wczytaniu
     refreshSuggestions()
 
-
     setInterval(refreshSuggestions, 60000)
-
 });
 
 function refreshSuggestions() {
@@ -34,7 +32,6 @@ $(document).ready(function () {
         $("#currentChannelLogo").attr('src', imgSrc);
 
         logListeningTime();
-        startDate = new Date();
         currentChannelUrl = $('body').data('firstChannelUrl');
         currentChannelName = $('body').data('firstChannelName');
     });
@@ -55,7 +52,6 @@ $(document).ready(function () {
         $("#currentChannelLogo").attr('src', imgSrc);
 
         logListeningTime();
-        startDate = new Date();
         currentChannelUrl = $('body').data('secondChannelUrl');
         currentChannelName = $('body').data('secondChannelName');
     });
@@ -76,7 +72,6 @@ $(document).ready(function () {
         $("#currentChannelLogo").attr('src', imgSrc);
 
         logListeningTime();
-        startDate = new Date();
         currentChannelUrl = $('body').data('thirdChannelUrl');
         currentChannelName = $('body').data('thirdChannelName');
     });

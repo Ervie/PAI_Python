@@ -17,10 +17,13 @@ $(document).ready(function () {
     $("#jquery_jplayer_1").jPlayer({
         ready: function (event) {
         	ready = true;
-        	startDate = new Date();
             $(this).jPlayer("setMedia", stream);
         },
         pause: function () {
+        	logListeningTime();
+        },
+        play: function () {
+        	startDate = new Date();
         },
         error: function (event) {
             if (ready && event.jPlayer.error.type === $.jPlayer.error.URL_NOT_SET) {
@@ -45,7 +48,6 @@ $(document).ready(function () {
 });
 
 // Reset Stacji
-//$(this).jPlayer("clearMedia");
 $(document).ready(function () {
     $("#MediaResetBtn").click(function () {
         $('#jquery_jplayer_1').jPlayer('clearMedia');
@@ -87,7 +89,6 @@ $(document).ready(function () {
 		$('#jquery_jplayer_1').jPlayer('setMedia', stream);
 		$("#currentChannelLogo").attr('src', imgSrc);
 
-		startDate = new Date();
 		currentChannelName = stream.title;
 		currentChannelUrl = stream.mp3;
 	});
