@@ -30,10 +30,12 @@
 				</div>
 				<div class="jp-details">
                     <marquee id="jp-meta" class="site-text" behavior="scroll" scrolldelay="3" scrollamount="3" direction="left" width="250">
-                  {% include "app/metadata.html" %}
+                        {% include "app/metadata.html" %}
                     </marquee>
 				  <div class="jp-title" aria-label="title">&nbsp;</div>
-				<input id='userStarRating' class='rating-loading' data-size="xs">
+                    <div class="jp-rating">
+				        {% include "app/rating.html" %}
+                    </div>
 				</div>
 				<div class="jp-no-solution">
 				  <span>Update Required</span>

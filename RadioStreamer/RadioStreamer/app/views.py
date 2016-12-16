@@ -27,7 +27,7 @@ def home(request):
 
 def metadata(request):
     """Odświeżanie widoku metadanych"""
-    channelUrl = request.POST['currentChannelUrl'] 
+    channelUrl = request.GET['currentChannelUrl'] 
 
     newMetadata = "";
     
@@ -90,7 +90,7 @@ def sidebar(request):
             {
                 'firstImagePath': "static/app/image/icons/300px/classic.png",
                 'firstImagePathSmall': "static/app/image/icons/120px/classic120.png",
-                'firstChannelName': "RMF Classic",
+                'firstChannelName': "RMF FM Classic",
                 'firstChannelUrl': "http://195.150.20.243:8000/rmf_classic",
                 'secondImagePath': "static/app/image/icons/300px/gensokyo.png",
                 'secondImagePathSmall': "static/app/image/icons/120px/gensokyo120.png",
@@ -109,15 +109,44 @@ def logTime(request):
 	#username = None
 	#if request.user.is_authenticated():
 		#username = request.user.username
+    username = "Forczu";
 
-    db = dbServices.dbServices()
+    db = dbServices.dbServices();
 
-    channelName = request.POST['currentChannelName'] 
+    channelName = request.POST['currentChannelName'];
     start = datetime.strptime(request.POST['startTimestamp'], '%Y-%m-%dT%H:%M:%S.%fZ');
     end = datetime.strptime(request.POST['endTimestamp'], '%Y-%m-%dT%H:%M:%S.%fZ');
     duration = abs((end - start).seconds);
-    db.add_history_log("Forczu", channelName, start, end);
+    db.add_history_log(username, channelName, start, end);
 
-    return HttpResponse(status=204)
+    return HttpResponse(status=204);
+
+def rating(request):
+
+    # ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
+	#username = None
+	#if request.user.is_authenticated():
+		#username = request.user.username
+    username = "Forczu";
+    
+    db = dbServices.dbServices();
+    if (request.method == "GET"):
+        channelRating = db.get_rating(username, request.GET['currentChannelName']);
+        
+        if (channelRating.id is None):
+            value = 0;
+        else:
+            value = channelRating.value / 2.0;
+
+        return HttpResponse(value);
+
+    elif (request.method == "POST"):
+        adjustedRating = float(request.POST['value']) * 2;
+
+        db.add_rating(username, request.POST['currentChannelName'], adjustedRating);
+        return HttpResponse(status=204);
+
+    else:
+        return HttpResponse(0);
 
 

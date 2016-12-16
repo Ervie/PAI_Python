@@ -1,6 +1,6 @@
-﻿// Odświezanie polecanek meta co minutę
+﻿
+// Odświezanie polecanek meta co minutę
 $(document).ready(function () {
-
     // pierwszy raz od razu przy wczytaniu
     refreshSuggestions()
 
@@ -18,9 +18,7 @@ function refreshSuggestions() {
 
 // Pierwsza sugestia
 $(document).ready(function () {
-    $('body').on('click','#firstSuggestion', function () {
-
-		
+    $('body').on('click', '#firstSuggestion', function () {
         var stream = {
             title: $('body').data('firstChannelName'),
             mp3: $('body').data('firstChannelUrl')
@@ -34,13 +32,14 @@ $(document).ready(function () {
         logListeningTime();
         currentChannelUrl = $('body').data('firstChannelUrl');
         currentChannelName = $('body').data('firstChannelName');
+
+        loadRating();
     });
 });
 
 // Druga sugestia
 $(document).ready(function () {
     $("body").on('click', '#secondSuggestion', function () {
-
         var stream = {
             title: $('body').data('secondChannelName'),
             mp3: $('body').data('secondChannelUrl')
@@ -54,13 +53,14 @@ $(document).ready(function () {
         logListeningTime();
         currentChannelUrl = $('body').data('secondChannelUrl');
         currentChannelName = $('body').data('secondChannelName');
+
+        loadRating();
     });
 });
 
 // Trzecia sugestia
 $(document).ready(function () {
     $("body").on('click', '#thirdSuggestion', function () {
-
         var stream = {
             title: $('body').data('thirdChannelName'),
             mp3: $('body').data('thirdChannelUrl')
@@ -74,22 +74,62 @@ $(document).ready(function () {
         logListeningTime();
         currentChannelUrl = $('body').data('thirdChannelUrl');
         currentChannelName = $('body').data('thirdChannelName');
+
+        loadRating();
     });
 });
 
 // Inicjalizacja ratingu
 $(document).ready(function () {
-	$('#userStarRating').rating({ 
-		hoverEnabled: false,
-		showCaption: false
-	});
+    $('#userStarRating').rating({
+        hoverEnabled: false,
+        showCaption: false
+    });
 });
 
 // Zmiana ratingu
 $(document).on('ready', function () {
-	$("#userStarRating").rating().on("rating.clear", function (event) {
-		alert("Your rating is reset")
-	}).on("rating.change", function (event, value) {
-		alert("You rated: " + value);
-	});
+    $("#userStarRating").rating().on("rating.clear", function (event) {
+        if (currentChannelName != "") {
+
+            $.ajax({
+                url: 'rating',
+                type: "POST",
+                data: {
+                    'currentChannelName': currentChannelName,
+                    'value': "0",
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                }
+            })
+        }
+    }).on("rating.change", function (event, value) {
+        if (currentChannelName != "") {
+
+            $.ajax({
+                url: 'rating',
+                type: "POST",
+                data: {
+                    'currentChannelName': currentChannelName,
+                    'value': value,
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                }
+            })
+        }
+    });
 });
+
+// Wczytanie ratingu
+function loadRating() {
+
+    $.ajax({
+        url: 'rating',
+        type: "GET",
+        data: {
+            'currentChannelName': currentChannelName,
+            'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+        },
+        success: function (data) {
+            $("#userStarRating").rating("update", data);
+        }
+    })
+};

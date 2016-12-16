@@ -105,7 +105,7 @@ $(document).ready(function () {
 function refreshMeta() {
     $.ajax({
         url: 'metadata',
-        type: "POST",
+        type: "GET",
         data: {
             'currentChannelUrl': currentChannelUrl,
             'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},

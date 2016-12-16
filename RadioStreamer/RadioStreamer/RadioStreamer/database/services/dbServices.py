@@ -1,4 +1,4 @@
-import app.models as Models
+﻿import app.models as Models
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import ProgrammingError
@@ -18,10 +18,18 @@ class dbServices(object):
 
     # Adds rating to channel for specified user
     def add_rating(self, login = "", channelName = "", value = 0):
-        user = self.get_user(login)
-        chn = self.get_channel(channelName)
+        existingRating = self.get_rating(login, channelName);
 
-        Models.Ratings.objects.create(person = user, channel = chn, value = value)
+        if (existingRating.id is not None and value != 0):
+            Models.Ratings.objects.filter(id = existingRating.id).update(value = value);
+        elif (existingRating.id is not None):
+            Models.Ratings.objects.filter(id = existingRating.id).delete();
+        else:
+            user = self.get_user(login);
+            chn = self.get_channel(channelName);
+            
+            if (user.id != None and chn.id != None):
+                Models.Ratings.objects.create(person = user, channel = chn, value = value);
     
     # Adds favourite channel for user
     def add_fav(self, login = "", channelName = ""):
@@ -32,6 +40,7 @@ class dbServices(object):
     
 	# Add history log
     def add_history_log(self, userLogin= "", channelName ="", start = datetime.MINYEAR, end = datetime.MINYEAR, duration = 0):
+
         user = self.get_user(userLogin)
         chn = self.get_channel(channelName)
         startDate = start
