@@ -19,7 +19,10 @@ INSERT INTO tag (id, name) VALUES
     (18,'Klasyczne Brzmienia'),
     (19,'Relax'),
     (20,'Na Poprawê Nastroju'),
-    (21,'Do Æwiczeñ');
+    (21,'Do Æwiczeñ'),
+	(22,'Muzyka filmowa'),
+	(23,'Muzyka z gier'),
+	(24,'Azjatyckie');
     
 ----------------------------------------------
 
@@ -54,7 +57,10 @@ INSERT INTO channel (id, name, page_url, stream_url) VALUES
     (28,'OpenFM Alt Classic','http://open.fm/play/43','http://gr-relay-6.gaduradio.pl/43'),
     (29,'Open FM Chillout','http://open.fm/play/33','http://gr-relay-6.gaduradio.pl/33'),
     (30,'MusicFM','http://www.music-fm.de/','http://stream3.laut.fm/musicfm'),
-    (31,'Record Rock','http://www.radiorecord.ru/','http://air.radiorecord.ru:8102/rock_320');
+    (31,'Record Rock','http://www.radiorecord.ru/','http://air.radiorecord.ru:8102/rock_320'),
+	(32,'Gensokyo Radio','https://gensokyoradio.net/', 'http://stream.gensokyoradio.net:8000/stream/1/'),
+	(33,'VGM Radio','https://vgmradio.com/','http://radio.vgmradio.com:8040/stream');
+	 
     
 ----------------------------------------------
 
@@ -199,4 +205,11 @@ INSERT INTO tags_channels (id, channel_id, tag_id) VALUES
     (138,30,21),
     (139,31,12),
     (140,31,14),
-    (141,31,18);
+    (141,31,18),
+	(142,32,14),
+	(143,32,23),
+	(144,32,24),
+	(145,33,14),
+	(146,33,15),
+	(147,33,19),
+	(148,33,23);
