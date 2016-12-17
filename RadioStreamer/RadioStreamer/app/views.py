@@ -117,7 +117,7 @@ def logTime(request):
     start = datetime.strptime(request.POST['startTimestamp'], '%Y-%m-%dT%H:%M:%S.%fZ');
     end = datetime.strptime(request.POST['endTimestamp'], '%Y-%m-%dT%H:%M:%S.%fZ');
     duration = abs((end - start).seconds);
-    db.add_history_log(username, channelName, start, end);
+    db.add_history_log(username, channelName, start, end, duration);
 
     return HttpResponse(status=204);
 
@@ -148,5 +148,25 @@ def rating(request):
 
     else:
         return HttpResponse(0);
+
+def randomChannel(request):
+
+    db = dbServices.dbServices();
+
+    randomChannel = db.get_random_channel();
+
+    if (randomChannel is not None):
+
+        imgSrc = "static/app/image/icons/300px/" + randomChannel.name + ".png";
+
+        jsonData = {};
+        jsonData['channelName'] = randomChannel.name;
+        jsonData['channelUrl'] = randomChannel.stream_url;
+        jsonData['imagePath'] = imgSrc;
+
+        return HttpResponse(json.dumps(jsonData), content_type = "application/json");
+
+    else:
+        return HttpResponse(status=300);
 
 

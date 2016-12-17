@@ -2,6 +2,7 @@
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import ProgrammingError
+import random
 
 class dbServices(object):
     # Creates and returns new user
@@ -50,8 +51,6 @@ class dbServices(object):
         if (user.id is not None and chn.id is not None):
              return Models.History.objects.create(person = user, channel = chn, start_date = startDate, end_date = endDate, duration = dur);
 
-
-
     # Gets user with specified login
     def get_user(self, login=""):
         try:
@@ -65,6 +64,17 @@ class dbServices(object):
             return Models.Channel.objects.get(name = name)
         except ObjectDoesNotExist:
             return Models.Channel()
+    
+    # Gets random channel
+    def get_random_channel(self):
+        lastIndex = Models.Channel.objects.count() - 1;
+
+        if lastIndex > 0:
+            index = random.randint(0, lastIndex);
+
+            return Models.Channel.objects.all()[index];
+        else:
+            return None;
 
     # Gets user rating for specified channel
     def get_rating(self, login = "", channelName = ""):

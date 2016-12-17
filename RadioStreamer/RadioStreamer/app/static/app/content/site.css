@@ -53,6 +53,7 @@ input[type="checkbox"].input-validation-error {
 
 .customNavbar {
    background: rgba(58, 42, 69, 1);
+   height: 60px;
 }
 
 .myNavbarElement {

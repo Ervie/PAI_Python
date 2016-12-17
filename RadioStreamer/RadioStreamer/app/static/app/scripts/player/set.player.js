@@ -63,35 +63,30 @@ $(document).ready(function () {
 $(document).ready(function () {
 	$("#ChangeChannelBtn").click(function () {
 
-		RandomNumber = Math.random();
+	    $.ajax({
+	        url: 'randomChannel',
+	        type: "GET",
+	        success: function (data, textStatus, jqXHR){
 
-		if (RandomNumber > 0.66) {
-			var stream = {
-				title: "RMF Classic",
-				mp3: "http://195.150.20.243:8000/rmf_classic"
-			}
-			imgSrc = "static/app/image/icons/300px/classic.png"
 
-		} else if (RandomNumber > 0.33) {
-			var stream = {
-				title: "Gensokyo Radio",
-				mp3: "http://stream.gensokyoradio.net:8000/stream/1/"
-			}
-			imgSrc = "static/app/image/icons/300px/gensokyo.png"
-		} else {
-			var stream = {
-				title: "VGM Radio",
-				mp3: "http://radio.vgmradio.com:8040/stream"
-			}
-			imgSrc = "static/app/image/icons/300px/vgm.png"
-		}
+	            var stream = {
+	                title: data.channelName,
+	                mp3: data.channelUrl
+	            };
 
-		logListeningTime();
-		$('#jquery_jplayer_1').jPlayer('setMedia', stream);
-		$("#currentChannelLogo").attr('src', imgSrc);
+	            imgSrc = data.imagePath;
 
-		currentChannelName = stream.title;
-		currentChannelUrl = stream.mp3;
+	            $('#jquery_jplayer_1').jPlayer('setMedia', stream);
+	            $("#currentChannelLogo").attr('src', imgSrc);
+
+	            logListeningTime();
+	            currentChannelName = data.channelName;
+	            currentChannelUrl = data.channelUrl;
+
+	            loadRating();
+	        }
+	    })
+
 	});
 });
 
