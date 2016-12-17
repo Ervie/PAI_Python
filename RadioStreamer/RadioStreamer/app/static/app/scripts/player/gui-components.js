@@ -133,3 +133,23 @@ function loadRating() {
         }
     })
 };
+
+// Wczytanie listy stacji
+$(document).on('ready', function () {
+
+    $.ajax({
+        url: 'channelList',
+        type: "GET",
+        success: function (data, textStatus, jqXHR) {
+            i = 0;
+            $.each(
+                data,
+                function (i) {
+                    $("#station-list").append("<li><a class='channelRef' id='" + data[i] + "'>" + data[i] + "</a></li>");
+                }
+            );
+
+        }
+    })
+
+});

@@ -59,7 +59,7 @@ $(document).ready(function () {
     });
 });
     
-// Przedładowania stacji
+// Losowa stacja
 $(document).ready(function () {
 	$("#ChangeChannelBtn").click(function () {
 
@@ -90,6 +90,40 @@ $(document).ready(function () {
 	});
 });
 
+// Stacja wybrana z dropdown
+$(document).ready(function () {
+    $("#station-list").on("click", ".channelRef", function () {
+        alert("The paragraph was clicked.");
+        $.ajax({
+            url: 'requestedChannel',
+            type: "GET",
+            data: {
+                'channelName': event.target.id,
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            success: function (data, textStatus, jqXHR) {
+
+                var stream = {
+                    title: data.channelName,
+                    mp3: data.channelUrl
+                };
+
+                imgSrc = data.imagePath;
+
+                $('#jquery_jplayer_1').jPlayer('setMedia', stream);
+                $("#currentChannelLogo").attr('src', imgSrc);
+
+                logListeningTime();
+                currentChannelName = data.channelName;
+                currentChannelUrl = data.channelUrl;
+
+                loadRating();
+            }
+        })
+
+    });
+});
+
 // Wczytywanie meta co 3 sekund
 $(document).ready(function () {
 
@@ -110,6 +144,7 @@ function refreshMeta() {
     })
 };
 
+// Logowanie odsłuchanego czasu
 function logListeningTime() {
 
 	endDate = new Date();

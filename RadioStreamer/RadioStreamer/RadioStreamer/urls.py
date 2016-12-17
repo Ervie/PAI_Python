@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^rating', app.views.rating, name="rating"),
     url(r'^sidebar', app.views.sidebar, name="sidebar"),
     url(r'^randomChannel', app.views.randomChannel, name="randomChannel"),
+    url(r'^channelList', app.views.channelList, name="channelList"),
+    url(r'^requestedChannel', app.views.requestedChannel, name="requestedChannel"),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

@@ -169,4 +169,27 @@ def randomChannel(request):
     else:
         return HttpResponse(status=300);
 
+def channelList(request):
 
+    db = dbServices.dbServices();
+
+    channelList = db.get_all_channels();
+
+    json_string = json.dumps(sorted([ob.name for ob in channelList]))
+
+    return HttpResponse(json_string, content_type = "application/json");
+
+def requestedChannel(request):
+
+    db = dbServices.dbServices();
+
+    requestedChannel = db.get_channel(request.GET['channelName']);
+    
+    imgSrc = "static/app/image/icons/300px/" + requestedChannel.name + ".png";
+
+    jsonData = {};
+    jsonData['channelName'] = requestedChannel.name;
+    jsonData['channelUrl'] = requestedChannel.stream_url;
+    jsonData['imagePath'] = imgSrc;
+    
+    return HttpResponse(json.dumps(jsonData), content_type = "application/json");

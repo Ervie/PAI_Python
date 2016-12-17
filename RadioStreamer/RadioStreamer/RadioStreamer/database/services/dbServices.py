@@ -76,6 +76,10 @@ class dbServices(object):
         else:
             return None;
 
+    def get_all_channels(self):
+
+        return Models.Channel.objects.all();
+
     # Gets user rating for specified channel
     def get_rating(self, login = "", channelName = ""):
         user = self.get_user(login)
