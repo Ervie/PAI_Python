@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^randomChannel', app.views.randomChannel, name="randomChannel"),
     url(r'^channelList', app.views.channelList, name="channelList"),
     url(r'^requestedChannel', app.views.requestedChannel, name="requestedChannel"),
+    url(r'^addChannel', app.views.addChannel, name="addChannel"),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

@@ -10,6 +10,7 @@ import json
 
 from RadioStreamer.utils import MetadataWorker as MW
 from RadioStreamer.database.services import dbServices
+from app.forms import OwnRadioChannelForm as channelForm
 
 
 def home(request):
@@ -193,3 +194,9 @@ def requestedChannel(request):
     jsonData['imagePath'] = imgSrc;
     
     return HttpResponse(json.dumps(jsonData), content_type = "application/json");
+
+def addChannel(request):
+
+    form_class = channelForm()
+
+    return render(request, 'app/addChannel.html', {'form': form_class })

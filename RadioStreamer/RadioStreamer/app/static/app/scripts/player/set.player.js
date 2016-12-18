@@ -93,7 +93,6 @@ $(document).ready(function () {
 // Stacja wybrana z dropdown
 $(document).ready(function () {
     $("#station-list").on("click", ".channelRef", function () {
-        alert("The paragraph was clicked.");
         $.ajax({
             url: 'requestedChannel',
             type: "GET",

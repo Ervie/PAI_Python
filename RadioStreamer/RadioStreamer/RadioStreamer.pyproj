@@ -162,6 +162,7 @@
     <Content Include="app\static\app\scripts\player\set.player.js" />
     <Content Include="app\static\app\scripts\player\star-rating.js" />
     <Content Include="app\static\app\scripts\player\star-rating.min.js" />
+    <Content Include="app\templates\app\addChannel.html" />
     <Content Include="app\templates\app\channelsPartial.html" />
     <Content Include="app\templates\app\metadata.html" />
     <Content Include="app\templates\app\rating.html" />

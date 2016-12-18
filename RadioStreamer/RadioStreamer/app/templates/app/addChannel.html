@@ -1,0 +1,24 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2 class="site-text">Dodaj stację</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="ownRadioChannelForm" class="site-text">
+            <form action="." method="post" class="form-horizontal">
+                {{ form.as_p }}
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="hidden" name="next" value="/" />
+                        <input type="submit" value="Dodaj" class="btn btn-info" />
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+
+
+{% endblock %}
