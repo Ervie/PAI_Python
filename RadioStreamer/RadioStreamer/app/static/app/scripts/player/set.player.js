@@ -116,11 +116,42 @@ $(document).ready(function () {
                 currentChannelName = data.channelName;
                 currentChannelUrl = data.channelUrl;
 
+                startDate = new Date();
                 loadRating();
             }
         })
 
     });
+});
+
+// Wybrana prywatna stacja z drugiego dropdown
+$(document).ready(function () {
+	$("#station-list").on("click", ".privateChannelRef", function () {
+		$.ajax({
+			url: 'requestedPrivateChannel',
+			type: "GET",
+			data: {
+				'channelName': event.target.id,
+				'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+			},
+			success: function (data, textStatus, jqXHR) {
+
+				var stream = {
+					title: data.channelName,
+					mp3: data.channelUrl
+				};
+
+				$('#jquery_jplayer_1').jPlayer('setMedia', stream);
+				$("#currentChannelLogo").attr('src', "static/app/image/icons/300px/placeholder.png");
+
+				currentChannelName = data.channelName;
+				currentChannelUrl = data.channelUrl;
+
+				startDate = new Date();
+			}
+		})
+
+	});
 });
 
 // Wczytywanie meta co 3 sekund

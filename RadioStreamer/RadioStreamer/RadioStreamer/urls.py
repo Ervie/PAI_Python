@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'^channelList', app.views.channelList, name="channelList"),
     url(r'^requestedChannel', app.views.requestedChannel, name="requestedChannel"),
     url(r'^addChannel', app.views.addChannel, name="addChannel"),
+    url(r'^modifyChannelFile', app.views.modifyChannelFile, name="modifyChannelFile"),
+    url(r'^privateChannelList', app.views.privateChannelList, name="privateChannelList"),
+    url(r'^requestedPrivateChannel', app.views.requestedPrivateChannel, name="requestedPrivateChannel"),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

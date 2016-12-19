@@ -46,6 +46,9 @@
     <Compile Include="RadioStreamer\utils\MetadataWorker.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RadioStreamer\utils\XmlHelper.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RadioStreamer\utils\__init__.py">
       <SubType>Code</SubType>
     </Compile>

@@ -9,6 +9,7 @@ from datetime import datetime
 import json
 
 from RadioStreamer.utils import MetadataWorker as MW
+from RadioStreamer.utils import XmlHelper as Xml
 from RadioStreamer.database.services import dbServices
 from app.forms import OwnRadioChannelForm as channelForm
 
@@ -168,7 +169,7 @@ def randomChannel(request):
         return HttpResponse(json.dumps(jsonData), content_type = "application/json");
 
     else:
-        return HttpResponse(status=300);
+        return HttpResponse(status=400);
 
 def channelList(request):
 
@@ -196,7 +197,47 @@ def requestedChannel(request):
     return HttpResponse(json.dumps(jsonData), content_type = "application/json");
 
 def addChannel(request):
+	"""Wyświetlanie widoku formatki do uzupełnienia"""
+	form_class = channelForm()
 
-    form_class = channelForm()
+	return render(request, 'app/addChannel.html', {'form': form_class })
 
-    return render(request, 'app/addChannel.html', {'form': form_class })
+def modifyChannelFile(request):
+	"""Konkretne uruchomienie procedury dodawanie do pliku"""
+	
+	channelName = request.POST['name'];
+	siteUrl = request.POST['siteUrl'];
+	streamUrl = request.POST['streamUrl'];
+
+	xmlHelper = Xml.XmlHelper()
+
+	isValid = xmlHelper.appendNewChannel(channelName, siteUrl, streamUrl);
+
+	if (isValid):
+		return HttpResponse(status=204);
+	else:
+		return HttpResponse(status=403);
+
+def privateChannelList(request):
+	"""Wczytywanie własnych stacji z pliku"""
+
+	xmlHelper = Xml.XmlHelper();
+
+	channelList = xmlHelper.readAllChannels();
+
+	json_string = json.dumps(sorted([ob.name for ob in channelList]))
+
+	return HttpResponse(json_string, content_type = "application/json");
+
+def requestedPrivateChannel(request):
+	"""Załadowanie stacji z pliku"""
+
+	xmlHelper = Xml.XmlHelper();
+
+	requestedChannel = xmlHelper.getChannelUrl(request.GET['channelName']);
+
+	jsonData = {};
+	jsonData['channelName'] = requestedChannel.name;
+	jsonData['channelUrl'] = requestedChannel.stream_url;
+	
+	return HttpResponse(json.dumps(jsonData), content_type = "application/json");

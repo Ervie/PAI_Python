@@ -152,4 +152,19 @@ $(document).on('ready', function () {
         }
     })
 
+    $.ajax({
+    	url: 'privateChannelList',
+    	type: "GET",
+    	success: function (data, textStatus, jqXHR) {
+    		i = 0;
+    		$.each(
+                data,
+                function (i) {
+                	$("#station-list").append("<li><a class='privateChannelRef' id='" + data[i] + "'>" + data[i] + "</a></li>");
+                }
+            );
+
+    	}
+    })
+
 });
