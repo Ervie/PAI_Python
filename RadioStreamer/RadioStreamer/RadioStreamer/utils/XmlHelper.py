@@ -5,7 +5,7 @@ class XmlHelper(object):
 		"""Initialize"""
 
 	def readAllChannels(self):
-		"""Return all stations names"""
+		"""Return collection of all stations names"""
 
 		return None;
 

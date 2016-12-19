@@ -94,7 +94,6 @@ class dbServices(object):
     # Gets user's favourite channels
     def get_favs(self, login = ""):
         user = self.get_user(login)
-
         return user.favs.all()
 
     # Gets all tags from database

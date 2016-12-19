@@ -241,3 +241,21 @@ def requestedPrivateChannel(request):
 	jsonData['channelUrl'] = requestedChannel.stream_url;
 	
 	return HttpResponse(json.dumps(jsonData), content_type = "application/json");
+
+def favoriteList(request):
+
+	# ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
+	#username = None
+	#if request.user.is_authenticated():
+		#username = request.user.username
+    username = "Forczu";
+
+    db = dbServices.dbServices();
+
+    #favoritesList = db.get_favs(username);
+
+    favoritesList = db.get_all_channels();
+
+    json_string = json.dumps(sorted([ob.name for ob in favoritesList]))
+
+    return HttpResponse(json_string, content_type = "application/json");

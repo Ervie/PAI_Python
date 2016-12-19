@@ -136,35 +136,47 @@ function loadRating() {
 
 // Wczytanie listy stacji
 $(document).on('ready', function () {
-
-    $.ajax({
-        url: 'channelList',
-        type: "GET",
-        success: function (data, textStatus, jqXHR) {
-            i = 0;
-            $.each(
+	// Wszystkie
+	$.ajax({
+		url: 'channelList',
+		type: "GET",
+		success: function (data, textStatus, jqXHR) {
+			i = 0;
+			$.each(
                 data,
                 function (i) {
-                    $("#station-list").append("<li><a class='channelRef' id='" + data[i] + "'>" + data[i] + "</a></li>");
+                	$("#station-list").append("<li><a class='channelRef' id='" + data[i] + "'>" + data[i] + "</a></li>");
                 }
             );
 
-        }
-    })
-
-    $.ajax({
-    	url: 'privateChannelList',
-    	type: "GET",
-    	success: function (data, textStatus, jqXHR) {
-    		i = 0;
-    		$.each(
+		}
+	})
+	// Prywatne
+	$.ajax({
+		url: 'privateChannelList',
+		type: "GET",
+		success: function (data, textStatus, jqXHR) {
+			i = 0;
+			$.each(
                 data,
                 function (i) {
-                	$("#station-list").append("<li><a class='privateChannelRef' id='" + data[i] + "'>" + data[i] + "</a></li>");
+                	$("#private-station-list").append("<li><a class='privateChannelRef' id='" + data[i] + "'>" + data[i] + "</a></li>");
                 }
             );
 
-    	}
-    })
-
+		}
+	})
+	//Ulubione
+	$.ajax({
+		url: 'favoriteList',
+		success: function (data, textStatus, jqXHR) {
+			i = 0;
+			$.each(
+				data,
+				function (i) {
+					$("#favorite-list").append("<li><a class='channelRef site-text' id='" + data[i] + "'>" + data[i] + "</a></li>");
+				}
+			)}
+		});
 });
+    

@@ -118,3 +118,33 @@ footer {
 #thirdSuggestion {
     border-color: rgba(205, 115, 0, 1)
 }
+
+/***************Sidebar z ulubionymi*********************/
+
+ul.sidenav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: rgba(58, 42, 69, 1);
+    position: fixed;
+    height: 50%;
+    overflow: auto;
+}
+
+ul.sidenav li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+ 
+ul.sidenav li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+ul.sidenav li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+

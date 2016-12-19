@@ -154,6 +154,40 @@ $(document).ready(function () {
 	});
 });
 
+// Stacja wybrana z ulubionych
+$(document).ready(function () {
+	$("#favorite-list").on("click", ".channelRef", function () {
+		$.ajax({
+			url: 'requestedChannel',
+			type: "GET",
+			data: {
+				'channelName': event.target.id,
+				'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+			},
+			success: function (data, textStatus, jqXHR) {
+
+				var stream = {
+					title: data.channelName,
+					mp3: data.channelUrl
+				};
+
+				imgSrc = data.imagePath;
+
+				$('#jquery_jplayer_1').jPlayer('setMedia', stream);
+				$("#currentChannelLogo").attr('src', imgSrc);
+
+				logListeningTime();
+				currentChannelName = data.channelName;
+				currentChannelUrl = data.channelUrl;
+
+				startDate = new Date();
+				loadRating();
+			}
+		})
+
+	});
+});
+
 // Wczytywanie meta co 3 sekund
 $(document).ready(function () {
 
