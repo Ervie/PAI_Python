@@ -243,7 +243,7 @@ def requestedPrivateChannel(request):
 	return HttpResponse(json.dumps(jsonData), content_type = "application/json");
 
 def favoriteList(request):
-
+    """Przeładowanie listy ulubionych stacji"""
 	# ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
 	#username = None
 	#if request.user.is_authenticated():
@@ -260,8 +260,6 @@ def favoriteList(request):
 
 
     favoritesList = db.get_favs(username);
-
-    #favoritesList = db.get_all_channels();
 
     json_string = json.dumps(sorted([ob.name for ob in favoritesList]))
 

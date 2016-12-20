@@ -38,9 +38,9 @@ class dbServices(object):
         chn = self.get_channel(channelName)
 
 
-        if (user.id is not None and chn.id is not None and exis):
-            existing_fav = Models.Favourites.objects.filter(person = user, channel = chn);
-            if (existing_fav.id is not None):
+        if (user.id is not None and chn.id is not None):
+            existing_fav = Models.Favourites.objects.filter(person = user, channel = chn).first();
+            if (existing_fav is None):
                 Models.Favourites.objects.create(person = user, channel = chn)
     
 	# Add history log

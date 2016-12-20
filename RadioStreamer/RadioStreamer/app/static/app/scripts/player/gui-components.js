@@ -170,11 +170,12 @@ $(document).on('ready', function () {
 	$.ajax({
 		url: 'favoriteList',
 		success: function (data, textStatus, jqXHR) {
+		    $("#favorite-list").append("<li><a href='#' class='active'>Ulubione stacje</a></li>");
 			i = 0;
 			$.each(
 				data,
 				function (i) {
-					$("#favorite-list").append("<li><a class='channelRef site-text' id='" + data[i] + "'>" + data[i] + "</a></li>");
+				    $("#favorite-list").append("<li><a class='channelRef site-text fav-channel' id='" + data[i] + "'>" + data[i] + "</a></li>");
 				}
 			)}
 		});
@@ -193,7 +194,17 @@ $(document).on('ready', function () {
                     'currentChannelName': currentChannelName,
                     'operation': "Add",
                     'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
-                }
+                },
+                success: function (data, textStatus, jqXHR) {
+                    $("#favorite-list").empty();
+                    $("#favorite-list").append("<li><a href='#' class='active'>Ulubione stacje</a></li>");
+                    i = 0;
+                    $.each(
+                        data,
+                        function (i) {
+                            $("#favorite-list").append("<li class='fav-channel'><a class='channelRef site-text' id='" + data[i] + "'>" + data[i] + "</a></li>");
+                        }
+                    )}
             })
         }
         else
@@ -205,6 +216,17 @@ $(document).on('ready', function () {
                     'currentChannelName': currentChannelName,
                     'operation': "Delete",
                     'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                },
+                success: function (data, textStatus, jqXHR) {
+                    $("#favorite-list").empty();
+                    $("#favorite-list").append("<li><a href='#' class='active'>Ulubione stacje</a></li>");
+                    i = 0;
+                    $.each(
+                        data,
+                        function (i) {
+                            $("#favorite-list").append("<li class='fav-channel'><a class='channelRef site-text' id='" + data[i] + "'>" + data[i] + "</a></li>");
+                        }
+                    )
                 }
             })
         }
