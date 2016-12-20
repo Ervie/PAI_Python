@@ -123,7 +123,7 @@ def logTime(request):
 
     return HttpResponse(status=204);
 
-def rating(request):
+def additionalInfo(request):
 
     # ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
 	#username = None
@@ -134,13 +134,18 @@ def rating(request):
     db = dbServices.dbServices();
     if (request.method == "GET"):
         channelRating = db.get_rating(username, request.GET['currentChannelName']);
-        
+        isFavorite = db.get_fav(username, request.GET['currentChannelName']);
+
         if (channelRating.id is None):
             value = 0;
         else:
             value = channelRating.value / 2.0;
 
-        return HttpResponse(value);
+        jsonData = {};
+        jsonData['value'] = value;
+        jsonData['isFavorite'] = False if isFavorite is None else True;
+
+        return HttpResponse(json.dumps(jsonData), content_type = "application/json");
 
     elif (request.method == "POST"):
         adjustedRating = float(request.POST['value']) * 2;
@@ -253,10 +258,11 @@ def favoriteList(request):
     db = dbServices.dbServices();
 
     if (request.method == "POST"):
-        if (request.POST['operation'] == "Add"):
-            db.add_fav(username, request.POST['currentChannelName']);
-        elif (request.POST['operation'] == "Delete"):
-            db.delete_fav(username, request.POST['currentChannelName']);
+        if (request.POST['currentChannelName']):
+            if (request.POST['operation'] == "Add"):
+                db.add_fav(username, request.POST['currentChannelName']);
+            elif (request.POST['operation'] == "Delete"):
+                db.delete_fav(username, request.POST['currentChannelName']);
 
 
     favoritesList = db.get_favs(username);

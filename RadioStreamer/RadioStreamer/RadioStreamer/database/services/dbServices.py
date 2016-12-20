@@ -111,6 +111,15 @@ class dbServices(object):
         user = self.get_user(login)
         return user.favs.all()
 
+    # Check for specific fav existence
+    def get_fav(self, login = "", channelName = ""):
+        user = self.get_user(login)
+        chn = self.get_channel(channelName)
+
+        if (user.id is not None and chn.id is not None):
+            existing_fav = Models.Favourites.objects.filter(person = user, channel = chn).first();
+            return existing_fav;
+
     # Gets all tags from database
     def get_tags(self):
         return Models.Tag.objects.all()

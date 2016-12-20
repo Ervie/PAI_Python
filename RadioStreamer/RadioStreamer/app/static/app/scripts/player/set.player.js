@@ -83,7 +83,7 @@ $(document).ready(function () {
 	            currentChannelName = data.channelName;
 	            currentChannelUrl = data.channelUrl;
 
-	            loadRating();
+	            loadAdditionalInfo();
 	        }
 	    })
 
@@ -117,7 +117,7 @@ $(document).ready(function () {
                 currentChannelUrl = data.channelUrl;
 
                 startDate = new Date();
-                loadRating();
+                loadAdditionalInfo();
             }
         })
 
@@ -181,7 +181,7 @@ $(document).ready(function () {
 				currentChannelUrl = data.channelUrl;
 
 				startDate = new Date();
-				loadRating();
+				loadAdditionalInfo();
 			}
 		})
 

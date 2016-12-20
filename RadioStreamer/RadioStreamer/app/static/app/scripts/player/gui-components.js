@@ -33,7 +33,7 @@ $(document).ready(function () {
         currentChannelUrl = $('body').data('firstChannelUrl');
         currentChannelName = $('body').data('firstChannelName');
 
-        loadRating();
+        loadAdditionalInfo();
     });
 });
 
@@ -54,7 +54,7 @@ $(document).ready(function () {
         currentChannelUrl = $('body').data('secondChannelUrl');
         currentChannelName = $('body').data('secondChannelName');
 
-        loadRating();
+        loadAdditionalInfo();
     });
 });
 
@@ -75,7 +75,7 @@ $(document).ready(function () {
         currentChannelUrl = $('body').data('thirdChannelUrl');
         currentChannelName = $('body').data('thirdChannelName');
 
-        loadRating();
+        loadAdditionalInfo();
     });
 });
 
@@ -93,7 +93,7 @@ $(document).on('ready', function () {
         if (currentChannelName != "") {
 
             $.ajax({
-                url: 'rating',
+                url: 'additionalInfo',
                 type: "POST",
                 data: {
                     'currentChannelName': currentChannelName,
@@ -106,7 +106,7 @@ $(document).on('ready', function () {
         if (currentChannelName != "") {
 
             $.ajax({
-                url: 'rating',
+                url: 'additionalInfo',
                 type: "POST",
                 data: {
                     'currentChannelName': currentChannelName,
@@ -119,17 +119,18 @@ $(document).on('ready', function () {
 });
 
 // Wczytanie ratingu
-function loadRating() {
+function loadAdditionalInfo() {
 
     $.ajax({
-        url: 'rating',
+        url: 'additionalInfo',
         type: "GET",
         data: {
             'currentChannelName': currentChannelName,
             'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
         },
-        success: function (data) {
-            $("#userStarRating").rating("update", data);
+        success: function (data, textStatus, jqXHR) {
+            $("#userStarRating").rating("update", data.value);
+            $("#squaredOne").prop('checked', data.isFavorite);
         }
     })
 };
@@ -181,7 +182,7 @@ $(document).on('ready', function () {
 		});
 });
 
-// Przedładowywanie stacji ulubionych przy zmianie stnau checkboxa
+// Przedładowywanie stacji ulubionych przy zmianie stanu checkboxa
 $(document).on('ready', function () {
     $('#squaredOne').change(function () {
 
