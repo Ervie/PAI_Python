@@ -252,9 +252,16 @@ def favoriteList(request):
 
     db = dbServices.dbServices();
 
-    #favoritesList = db.get_favs(username);
+    if (request.method == "POST"):
+        if (request.POST['operation'] == "Add"):
+            db.add_fav(username, request.POST['currentChannelName']);
+        elif (request.POST['operation'] == "Delete"):
+            db.delete_fav(username, request.POST['currentChannelName']);
 
-    favoritesList = db.get_all_channels();
+
+    favoritesList = db.get_favs(username);
+
+    #favoritesList = db.get_all_channels();
 
     json_string = json.dumps(sorted([ob.name for ob in favoritesList]))
 

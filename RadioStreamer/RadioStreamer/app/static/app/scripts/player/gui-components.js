@@ -179,4 +179,36 @@ $(document).on('ready', function () {
 			)}
 		});
 });
-    
+
+// Przedładowywanie stacji ulubionych przy zmianie stnau checkboxa
+$(document).on('ready', function () {
+    $('#squaredOne').change(function () {
+
+        if (document.getElementById('squaredOne').checked)
+        {
+            $.ajax({
+                url: 'favoriteList',
+                type: "POST",
+                data: {
+                    'currentChannelName': currentChannelName,
+                    'operation': "Add",
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                }
+            })
+        }
+        else
+        {
+            $.ajax({
+                url: 'favoriteList',
+                type: "POST",
+                data: {
+                    'currentChannelName': currentChannelName,
+                    'operation': "Delete",
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                }
+            })
+        }
+
+    });
+
+});

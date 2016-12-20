@@ -37,7 +37,11 @@ class dbServices(object):
         user = self.get_user(login)
         chn = self.get_channel(channelName)
 
-        Models.Favourites.objects.create(person = user, channel = chn)
+
+        if (user.id is not None and chn.id is not None and exis):
+            existing_fav = Models.Favourites.objects.filter(person = user, channel = chn);
+            if (existing_fav.id is not None):
+                Models.Favourites.objects.create(person = user, channel = chn)
     
 	# Add history log
     def add_history_log(self, userLogin= "", channelName ="", start = datetime.MINYEAR, end = datetime.MINYEAR, duration = 0):
@@ -50,6 +54,17 @@ class dbServices(object):
 
         if (user.id is not None and chn.id is not None):
              return Models.History.objects.create(person = user, channel = chn, start_date = startDate, end_date = endDate, duration = dur);
+
+
+    def delete_fav(self, login = "", channelName = ""):
+        user = self.get_user(login);
+        chn = self.get_channel(channelName);
+
+        if (user.id is not None and chn.id is not None):
+            try:
+                return Models.Favourites.objects.filter(person = user, channel = chn).delete();
+            except ObjectDoesNotExist:
+                return None;
 
     # Gets user with specified login
     def get_user(self, login=""):
