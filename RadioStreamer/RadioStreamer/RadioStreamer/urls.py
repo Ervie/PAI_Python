@@ -30,6 +30,8 @@ urlpatterns = [
     url(r'^privateChannelList', app.views.privateChannelList, name="privateChannelList"),
     url(r'^requestedPrivateChannel', app.views.requestedPrivateChannel, name="requestedPrivateChannel"),
     url(r'^favoriteList', app.views.favoriteList, name="favoriteList"),
+    url(r'^registration', app.views.register, name="registration"),
+    url(r'^postRegistration', app.views.postRegistration, name="postRegistration"),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

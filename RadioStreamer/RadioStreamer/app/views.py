@@ -5,12 +5,14 @@ from __future__ import unicode_literals
 from django.shortcuts import render, render_to_response
 from django.http import HttpRequest, HttpResponse
 from django.template import RequestContext
+from django.contrib.auth.models import User
 from datetime import datetime
 import json
 
 from RadioStreamer.utils import MetadataWorker as MW
 from RadioStreamer.utils import XmlHelper as Xml
 from RadioStreamer.database.services import dbServices
+
 from app.forms import OwnRadioChannelForm as channelForm
 
 
@@ -79,6 +81,55 @@ def about(request):
             'title':'About',
             'message':'Your application description page.',
             'year':datetime.now().year,
+        }
+    )
+
+def register(request):
+    assert isinstance(request, HttpRequest)
+    
+    return render(
+        request,
+        'app/registration.html',
+        {
+            'year':datetime.now().year
+        }
+    )
+
+def postRegistration(request):
+    assert isinstance(request, HttpRequest)
+
+    userName = request.POST['username']
+    password = request.POST['password']
+    password2 = request.POST['password2']
+    email = request.POST['email']
+
+    if (password != password2):
+        color = "red"
+        text = "Podane hasła nie są identyczne!"
+    else:
+        doesUserExist = User.objects.filter(username = userName).exists()
+
+        if (doesUserExist):
+            color = "red"
+            text = "Podany użytkownik istnieje już w bazie."
+        else:
+            user = User.objects.create_user(userName, email, password)
+            color = "green"
+            text = "Użytkownik został zarejestrowany pomyślnie! Za chwilę nastąpi przekierowanie na stronę główną."
+
+    if (color == "red"):
+        redirectUrl = "/registration"
+    else:
+        redirectUrl = "/"
+
+    return render(
+        request,
+        'app/postRegistration.html',
+        {
+            'year': datetime.now().year,
+            'text': text,
+            'textColor': color,
+            'redirectUrl': redirectUrl
         }
     )
 

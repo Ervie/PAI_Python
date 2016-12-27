@@ -169,7 +169,9 @@
     <Content Include="app\templates\app\channelsPartial.html" />
     <Content Include="app\templates\app\favoritePartial.html" />
     <Content Include="app\templates\app\metadata.html" />
+    <Content Include="app\templates\app\postRegistration.html" />
     <Content Include="app\templates\app\rating.html" />
+    <Content Include="app\templates\app\registration.html" />
     <Content Include="app\templates\app\sidebarPartial.html" />
     <Content Include="RadioStreamer\database\scripts\001_createDatabase.sql" />
     <Content Include="RadioStreamer\database\scripts\002_insertChannelTag.sql" />

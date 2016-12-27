@@ -1,0 +1,12 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+<head>
+    <meta http-equiv="refresh" content="4; url={{redirectUrl}}" />       <!-- redirect to main page after 4 seconds -->
+</head>
+
+<h2 class="site-text">Rejestracja</h2>
+<label style="color:{{textColor}}; margin: 10px 0 0 0">{{text}}</label>
+
+{% endblock %}

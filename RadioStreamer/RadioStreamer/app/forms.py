@@ -14,11 +14,11 @@ class BootstrapAuthenticationForm(AuthenticationForm):
     username = forms.CharField(max_length=254,
                                widget=forms.TextInput({
                                    'class': 'form-control',
-                                   'placeholder': 'User name'}))
+                                   'placeholder': 'Nazwa użytkownika'}))
     password = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
-                                   'placeholder':'Password'}))
+                                   'placeholder':'Hasło'}))
 
 class OwnRadioChannelForm(forms.Form):
     """Formatka do zapisywania własnej stacji"""
