@@ -18,14 +18,12 @@ ALTER TABLE public.channel
 
 CREATE TABLE public.person
 (
-	id bigserial,
-    login text COLLATE pg_catalog."default" NOT NULL,
-    password text COLLATE pg_catalog."default" NOT NULL,
-    salt text COLLATE pg_catalog."default" NOT NULL,
-    email text COLLATE pg_catalog."default",
-    CONSTRAINT person_pkey PRIMARY KEY (id),
-    CONSTRAINT person_email_key UNIQUE (email),
-    CONSTRAINT person_login_key UNIQUE (login)
+	user_id serial,
+    CONSTRAINT person_pkey PRIMARY KEY (user_id),
+    FOREIGN KEY (user_id)
+        REFERENCES public.auth_user (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 )
 WITH (
     OIDS = FALSE

@@ -2,10 +2,9 @@
 Definition of views.
 """
 from __future__ import unicode_literals
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpRequest, HttpResponse
 from django.template import RequestContext
-from django.contrib.auth.models import User
 from datetime import datetime
 import json
 
@@ -20,14 +19,17 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
 
-    return render(
-        request,
-        'app/index.html',
-        {
-            'title':'Home Page',
-            'year':datetime.now().year,
-        }
-    )
+    if request.user.is_authenticated:
+        return render(
+            request,
+            'app/index.html',
+            {
+                'title':'Home Page',
+                'year':datetime.now().year,
+            }
+        )
+    else:
+        return redirect('/login')
 
 def metadata(request):
     """Odświeżanie widoku metadanych"""
@@ -73,16 +75,19 @@ def about(request):
     #    favs = db.add_fav(user.login, channel.name)
     # -----------------
 
-
-    return render(
-        request,
-        'app/about.html',
-        {
-            'title':'About',
-            'message':'Your application description page.',
-            'year':datetime.now().year,
-        }
-    )
+    
+    if request.user.is_authenticated:
+        return render(
+            request,
+            'app/about.html',
+            {
+                'title':'About',
+                'message':'Your application description page.',
+                'year':datetime.now().year,
+            }
+        )
+    else:
+        return redirect('/login')
 
 def register(request):
     assert isinstance(request, HttpRequest)
@@ -107,20 +112,21 @@ def postRegistration(request):
         color = "red"
         text = "Podane hasła nie są identyczne!"
     else:
-        doesUserExist = User.objects.filter(username = userName).exists()
+        db = dbServices.dbServices()
+        doesUserExist = db.check_user_exists(userName)
 
         if (doesUserExist):
             color = "red"
             text = "Podany użytkownik istnieje już w bazie."
         else:
-            user = User.objects.create_user(userName, email, password)
+            db.add_user(userName, password, email)
             color = "green"
-            text = "Użytkownik został zarejestrowany pomyślnie! Za chwilę nastąpi przekierowanie na stronę główną."
+            text = "Użytkownik został zarejestrowany pomyślnie! Za chwilę nastąpi przekierowanie na stronę logowania."
 
     if (color == "red"):
         redirectUrl = "/registration"
     else:
-        redirectUrl = "/"
+        redirectUrl = "/login"
 
     return render(
         request,
@@ -157,12 +163,10 @@ def sidebar(request):
         )
 
 def logTime(request):
+    username = None
 
-	# ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
-	#username = None
-	#if request.user.is_authenticated():
-		#username = request.user.username
-    username = "Forczu";
+    if request.user.is_authenticated():
+        username = request.user.username
 
     db = dbServices.dbServices();
 
@@ -175,12 +179,10 @@ def logTime(request):
     return HttpResponse(status=204);
 
 def additionalInfo(request):
+    username = None
 
-    # ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
-	#username = None
-	#if request.user.is_authenticated():
-		#username = request.user.username
-    username = "Forczu";
+    if request.user.is_authenticated():
+        username = request.user.username
     
     db = dbServices.dbServices();
     if (request.method == "GET"):
@@ -256,7 +258,10 @@ def addChannel(request):
 	"""Wyświetlanie widoku formatki do uzupełnienia"""
 	form_class = channelForm()
 
-	return render(request, 'app/addChannel.html', {'form': form_class })
+	if request.user.is_authenticated:
+		return render(request, 'app/addChannel.html', {'form': form_class })
+	else:
+		return redirect('/login')
 
 def modifyChannelFile(request):
 	"""Konkretne uruchomienie procedury dodawanie do pliku"""
@@ -300,11 +305,10 @@ def requestedPrivateChannel(request):
 
 def favoriteList(request):
     """Przeładowanie listy ulubionych stacji"""
-	# ToDo: Odkomentować gdy logowanie/rejestracja zostaną zaimplementowane
-	#username = None
-	#if request.user.is_authenticated():
-		#username = request.user.username
-    username = "Forczu";
+    username = None
+
+    if request.user.is_authenticated():
+        username = request.user.username
 
     db = dbServices.dbServices();
 

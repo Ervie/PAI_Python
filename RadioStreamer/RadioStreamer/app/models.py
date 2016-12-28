@@ -5,6 +5,7 @@ Definition of models.
 from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 class Channel(models.Model):
     name = models.TextField()
@@ -16,15 +17,11 @@ class Channel(models.Model):
 
 
 class Person(models.Model):
-    id = models.BigAutoField(primary_key=True)                                                          # domyslnie tworzy sie id typu Serial, wiec tutaj trzeba sprecyzowac, bo jest inny typ
-    login = models.TextField(unique=True)
-    password = models.TextField()
-    salt = models.TextField()
-    email = models.TextField(unique=True, blank=True, null=True)
-
     favs = models.ManyToManyField(Channel, through = "Favourites", related_name = "favs")               # tworzy relacje M x N z tabela Channel z tablica posrednia Favourites
     userRatings = models.ManyToManyField(Channel, through = "Ratings", related_name = "userRatings")    # related_name wymagane, jesli istnieje wiecej niz jeden klucz obcy wskazujacy na ta tabele
     userHistory = models.ManyToManyField(Channel, through = "History", related_name = "userHistory")
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key = True)                                         # relacja laczaca z uzytkownikiem systemu autentykacji Django
 
     class Meta:
         db_table = 'person'

@@ -5,10 +5,16 @@ from django.db import ProgrammingError
 import random
 
 class dbServices(object):
-    # Creates and returns new user
-    def insert_user(self, login = "", password = "", salt = "", email = ""):
-        return Models.Person.objects.create(login = login, password = password, salt = salt, email = email)
-    
+    # Creates and returns new user    
+    def add_user(self, login = "", password = "", email = ""):
+        user = Models.User.objects.create_user(login, email, password)                  # create user in auth_user table
+        Models.Person.objects.create(user = user)                                       # create user in person table
+
+        return user
+
+    def check_user_exists(self, login = ""):
+        return Models.User.objects.filter(username = login).exists()
+
     # Creates and returns new channel
     def insert_channel(self, name = "", page_url = "", stream_url = ""):
         return Models.Channel.objects.create(name = name, page_url = page_url, stream_url = stream_url)
@@ -29,16 +35,15 @@ class dbServices(object):
             user = self.get_user(login);
             chn = self.get_channel(channelName);
             
-            if (user.id != None and chn.id != None):
+            if (user.user_id != None and chn.id != None):
                 Models.Ratings.objects.create(person = user, channel = chn, value = value);
     
     # Adds favourite channel for user
     def add_fav(self, login = "", channelName = ""):
         user = self.get_user(login)
         chn = self.get_channel(channelName)
-
-
-        if (user.id is not None and chn.id is not None):
+        
+        if (user.user_id is not None and chn.id is not None):
             existing_fav = Models.Favourites.objects.filter(person = user, channel = chn).first();
             if (existing_fav is None):
                 Models.Favourites.objects.create(person = user, channel = chn)
@@ -52,7 +57,7 @@ class dbServices(object):
         endDate = end
         dur = duration
 
-        if (user.id is not None and chn.id is not None):
+        if (user.user_id is not None and chn.id is not None):
              return Models.History.objects.create(person = user, channel = chn, start_date = startDate, end_date = endDate, duration = dur);
 
 
@@ -60,7 +65,7 @@ class dbServices(object):
         user = self.get_user(login);
         chn = self.get_channel(channelName);
 
-        if (user.id is not None and chn.id is not None):
+        if (user.user_id is not None and chn.id is not None):
             try:
                 return Models.Favourites.objects.filter(person = user, channel = chn).delete();
             except ObjectDoesNotExist:
@@ -69,7 +74,9 @@ class dbServices(object):
     # Gets user with specified login
     def get_user(self, login=""):
         try:
-            return Models.Person.objects.get(login = login)
+            user = Models.User.objects.get(username = login)
+
+            return Models.Person.objects.get(user = user)
         except ObjectDoesNotExist:
             return Models.Person()
         
@@ -109,14 +116,18 @@ class dbServices(object):
     # Gets user's favourite channels
     def get_favs(self, login = ""):
         user = self.get_user(login)
-        return user.favs.all()
+
+        if user.user_id is not None:
+            return user.favs.all()
+        else:
+            return Models.Favourites.objects.none()
 
     # Check for specific fav existence
     def get_fav(self, login = "", channelName = ""):
         user = self.get_user(login)
         chn = self.get_channel(channelName)
 
-        if (user.id is not None and chn.id is not None):
+        if (user.user_id is not None and chn.id is not None):
             existing_fav = Models.Favourites.objects.filter(person = user, channel = chn).first();
             return existing_fav;
 
