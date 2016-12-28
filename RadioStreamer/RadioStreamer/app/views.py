@@ -142,7 +142,7 @@ def sidebar(request):
 def logTime(request):
     username = None
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         username = request.user.username
 
     db = dbServices.dbServices();
@@ -158,7 +158,7 @@ def logTime(request):
 def additionalInfo(request):
     username = None
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         username = request.user.username
     
     db = dbServices.dbServices();
@@ -247,36 +247,50 @@ def modifyChannelFile(request):
 	siteUrl = request.POST['siteUrl'];
 	streamUrl = request.POST['streamUrl'];
 
-	xmlHelper = Xml.XmlHelper()
-
+	xmlHelper = Xml.XmlHelper(request.user.username)
 	isValid = xmlHelper.appendNewChannel(channelName, siteUrl, streamUrl);
 
 	if (isValid):
-		return HttpResponse(status=204);
+		redirectUrl = "/"
+		color = "green"
+		text = "Kanał został dodany prawidłowo."
 	else:
-		return HttpResponse(status=403);
+		redirectUrl = "/addChannel"
+		color = "red"
+		text = "Wystąpił błąd podczas dodawania kanału. Upewnij się, że podałeś prawidłowe adresy URL oraz że stacja nie istnieje już w naszej bazie."
+
+	return render(request,
+        'app/postAddChannel.html',
+        {
+            'year': datetime.now().year,
+            'text': text,
+            'textColor': color,
+            'redirectUrl': redirectUrl
+        }
+	)
 
 def privateChannelList(request):
 	"""Wczytywanie własnych stacji z pliku"""
 
-	xmlHelper = Xml.XmlHelper();
+	xmlHelper = Xml.XmlHelper(request.user.username);
 
 	channelList = xmlHelper.readAllChannels();
 
-	json_string = json.dumps(sorted([ob.name for ob in channelList]))
+	json_string = json.dumps(sorted([chnName for chnName in channelList]))
 
 	return HttpResponse(json_string, content_type = "application/json");
 
 def requestedPrivateChannel(request):
 	"""Załadowanie stacji z pliku"""
 
-	xmlHelper = Xml.XmlHelper();
+	xmlHelper = Xml.XmlHelper(request.user.username);
+	channelName = request.GET['channelName']
 
-	requestedChannel = xmlHelper.getChannelUrl(request.GET['channelName']);
+	requestedStreamUrl = xmlHelper.getStreamUrl(channelName);
 
 	jsonData = {};
-	jsonData['channelName'] = requestedChannel.name;
-	jsonData['channelUrl'] = requestedChannel.stream_url;
+	jsonData['channelName'] = channelName;
+	jsonData['channelUrl'] = requestedStreamUrl;
 	
 	return HttpResponse(json.dumps(jsonData), content_type = "application/json");
 
@@ -284,7 +298,7 @@ def favoriteList(request):
     """Przeładowanie listy ulubionych stacji"""
     username = None
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         username = request.user.username
 
     db = dbServices.dbServices();

@@ -12,6 +12,7 @@ class dbServices(object):
 
         return user
 
+    # Checks for existence of specified user in database
     def check_user_exists(self, login = ""):
         return Models.User.objects.filter(username = login).exists()
 
@@ -86,6 +87,12 @@ class dbServices(object):
             return Models.Channel.objects.get(name = name)
         except ObjectDoesNotExist:
             return Models.Channel()
+        
+    # Checks for existence of specified channel in database
+    def check_channel_exists(self, channelName = "", siteUrl = "", streamUrl = ""):
+        return ( Models.Channel.objects.filter(name = channelName).exists() or 
+                Models.Channel.objects.filter(page_url = siteUrl).exists() or 
+                Models.Channel.objects.filter(stream_url = streamUrl).exists() )
     
     # Gets random channel
     def get_random_channel(self):

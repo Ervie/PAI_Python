@@ -126,7 +126,7 @@ $(document).ready(function () {
 
 // Wybrana prywatna stacja z drugiego dropdown
 $(document).ready(function () {
-	$("#station-list").on("click", ".privateChannelRef", function () {
+	$("#private-station-list").on("click", ".privateChannelRef", function () {
 		$.ajax({
 			url: 'requestedPrivateChannel',
 			type: "GET",
