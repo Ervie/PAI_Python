@@ -63,7 +63,7 @@ CREATE TABLE public.favourites
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     FOREIGN KEY (person_id)
-        REFERENCES public.person (id) MATCH SIMPLE
+        REFERENCES public.person (user_id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 )
@@ -91,7 +91,7 @@ CREATE TABLE public.history
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT history_person_id_fkey FOREIGN KEY (person_id)
-        REFERENCES public.person (id) MATCH SIMPLE
+        REFERENCES public.person (user_id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
 )
@@ -117,7 +117,7 @@ CREATE TABLE public.ratings
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT ratings_person_id_fkey FOREIGN KEY (person_id)
-        REFERENCES public.person (id) MATCH SIMPLE
+        REFERENCES public.person (user_id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     CONSTRAINT ratings_value_check CHECK (value >= 1 AND value <= 10)
