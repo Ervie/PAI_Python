@@ -1,5 +1,12 @@
-﻿
-// Odświezanie polecanek meta co minutę
+﻿// zmienne do przetrzymywania informacji o polecankach
+var firstChannelName;
+var firstChannelUrl;
+var secondChannelName;
+var secondChannelUrl;
+var thirdChannelName;
+var thirdChannelUrl;
+
+// Odświezanie polecanek co minutę
 $(document).ready(function () {
     // pierwszy raz od razu przy wczytaniu
     refreshSuggestions()
@@ -9,29 +16,51 @@ $(document).ready(function () {
 
 function refreshSuggestions() {
     $.ajax({
-        url: 'sidebar',
+        url: 'suggestions',
         success: function (data) {
             $('#sidebar').html(data);
+        },
+        success: function (data, textStatus, jqXHR) {
+            firstChannelName = data.FirstChannelName;
+            firstChannelUrl = data.FirstChannelUrl;
+            secondChannelName = data.SecondChannelName;
+            secondChannelUrl = data.SecondChannelUrl;
+            thirdChannelName = data.ThirdChannelName;
+            thirdChannelUrl = data.ThirdChannelUrl;
+
+            $.ajax({
+                url: 'sidebar',
+                type: "GET",
+                data: {
+                    'firstChannelName': firstChannelName,
+                    'secondChannelName': secondChannelName,
+                    'thirdChannelName': thirdChannelName,
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()
+                },
+                success: function (data) {
+                    $('#sidebar').html(data);
+                }
+            })
         }
-    })
+    });
 };
 
 // Pierwsza sugestia
 $(document).ready(function () {
     $('body').on('click', '#firstSuggestion', function () {
         var stream = {
-            title: $('body').data('firstChannelName'),
-            mp3: $('body').data('firstChannelUrl')
+            title: firstChannelName,
+            mp3: firstChannelUrl
         }
 
-        imgSrc = $('body').data('firstImagePath')
+        imgSrc = "static/app/image/icons/300px/" + firstChannelName + ".png";
 
         $('#jquery_jplayer_1').jPlayer('setMedia', stream);
         $("#currentChannelLogo").attr('src', imgSrc);
 
         logListeningTime();
-        currentChannelUrl = $('body').data('firstChannelUrl');
-        currentChannelName = $('body').data('firstChannelName');
+        currentChannelUrl = firstChannelUrl;
+        currentChannelName = firstChannelName;
 
         startDate = new Date();
         loadAdditionalInfo();
@@ -42,18 +71,18 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("body").on('click', '#secondSuggestion', function () {
         var stream = {
-            title: $('body').data('secondChannelName'),
-            mp3: $('body').data('secondChannelUrl')
+            title: secondChannelName,
+            mp3: secondChannelUrl
         }
 
-        imgSrc = $('body').data('secondImagePath')
+        imgSrc = "static/app/image/icons/300px/" + secondChannelName + ".png";
 
         $('#jquery_jplayer_1').jPlayer('setMedia', stream);
         $("#currentChannelLogo").attr('src', imgSrc);
 
         logListeningTime();
-        currentChannelUrl = $('body').data('secondChannelUrl');
-        currentChannelName = $('body').data('secondChannelName');
+        currentChannelUrl = secondChannelUrl;
+        currentChannelName = secondChannelName;
 
         startDate = new Date();
         loadAdditionalInfo();
@@ -64,18 +93,18 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("body").on('click', '#thirdSuggestion', function () {
         var stream = {
-            title: $('body').data('thirdChannelName'),
-            mp3: $('body').data('thirdChannelUrl')
+            title: thirdChannelName,
+            mp3: thirdChannelUrl
         }
 
-        imgSrc = $('body').data('thirdImagePath')
+        imgSrc = "static/app/image/icons/300px/" + thirdChannelName + ".png";
 
         $('#jquery_jplayer_1').jPlayer('setMedia', stream);
         $("#currentChannelLogo").attr('src', imgSrc);
 
         logListeningTime();
-        currentChannelUrl = $('body').data('thirdChannelUrl');
-        currentChannelName = $('body').data('thirdChannelName');
+        currentChannelUrl = thirdChannelUrl;
+        currentChannelName = thirdChannelName;
 
         startDate = new Date();
         loadAdditionalInfo();

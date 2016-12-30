@@ -112,30 +112,38 @@ def postRegistration(request):
             'year': datetime.now().year,
             'text': text,
             'textColor': color,
-            'redirectUrl': redirectUrl
+            'redirectUrl': redirectUrlz
         }
     )
 
-def sidebar(request):
+def suggestions(request):
     """Odświeżanie sidebara z polecankami"""
-    # ToDo: Logika do polecanek: wczytać obiekty typu channel z DB i załadować nazwę i url, ścieżki do obrazków wziąć na podstawie nazwy stacji. Algorytm w osobnej klasie (tagi, historia odsłuchań itp.). Można odliczyć ulubione.
+    # ToDo: Zaciągnąć polecanki z procedury bazodanowej.
+
+    db = dbServices.dbServices();
+
+    # suggestions = db.get_suggestions();
+
+    jsonData = {};
+    jsonData['FirstChannelName'] = "RMF FM Classic"; # suggestions[0].ChannelName itp.
+    jsonData['FirstChannelUrl'] = "http://195.150.20.243:8000/rmf_classic";
+    jsonData['SecondChannelName'] = "Gensokyo Radio";
+    jsonData['SecondChannelUrl'] = "http://stream.gensokyoradio.net:8000/stream/1/";
+    jsonData['ThirdChannelName'] = "VGM Radio";
+    jsonData['ThirdChannelUrl'] = "http://radio.vgmradio.com:8040/stream";
+
+    return HttpResponse(json.dumps(jsonData), content_type = "application/json");
+
+def sidebar(request):
+    """Wczytanie polecanek"""
 
     return render(
         request,
         'app/sidebarPartial.html', 
             {
-                'firstImagePath': "static/app/image/icons/300px/RMF FM Classic.png",
-                'firstImagePathSmall': "static/app/image/icons/120px/RMF FM Classic120.png",
-                'firstChannelName': "RMF FM Classic",
-                'firstChannelUrl': "http://195.150.20.243:8000/rmf_classic",
-                'secondImagePath': "static/app/image/icons/300px/Gensokyo Radio.png",
-                'secondImagePathSmall': "static/app/image/icons/120px/Gensokyo Radio120.png",
-                'secondChannelName': "Gensokyo Radio",
-                'secondChannelUrl': "http://stream.gensokyoradio.net:8000/stream/1/",
-                'thirdImagePath': "static/app/image/icons/300px/VGM Radio.png",
-                'thirdImagePathSmall': "static/app/image/icons/120px/VGM Radio120.png",
-                'thirdChannelName': "VGM Radio",
-                'thirdChannelUrl': "http://radio.vgmradio.com:8040/stream",
+                'firstImagePathSmall': "static/app/image/icons/120px/" + request.GET['firstChannelName'] +  "120.png",
+                'secondImagePathSmall': "static/app/image/icons/120px/" + request.GET['secondChannelName'] +  "120.png",
+                'thirdImagePathSmall': "static/app/image/icons/120px/" + request.GET['thirdChannelName'] +  "120.png"
             }
         )
 
