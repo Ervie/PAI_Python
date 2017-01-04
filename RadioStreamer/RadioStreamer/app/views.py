@@ -112,7 +112,7 @@ def postRegistration(request):
             'year': datetime.now().year,
             'text': text,
             'textColor': color,
-            'redirectUrl': redirectUrlz
+            'redirectUrl': redirectUrl
         }
     )
 
