@@ -1,16 +1,3 @@
-
-DROP TABLE IF EXISTS channel_values CASCADE;
-
-CREATE TEMP TABLE channel_values
-  (
-	channel_id bigint, 
-	channel_name text, 
-	stream_url text, 
-	value_ float
-  );
-
-CREATE OR REPLACE FUNCTION calculateRecommandation(user_Name text) RETURNS SETOF channel_values AS
-$$
 DECLARE
 user_id bigint;
 iterator int;
@@ -72,8 +59,8 @@ CREATE TEMP TABLE channel_values2
 	/* Wypelnij wartosc tagow wg dlugosci odsluchan */
 	WHILE (SELECT COUNT(*) FROM channels_by_duration) > 0 LOOP
 	
-		SELECT channel_id INTO iterator
-		FROM channels_by_duration
+		SELECT cbd.channel_id INTO iterator
+		FROM channels_by_duration cbd
 		LIMIT 1;
 
 		UPDATE tags_values AS tv
@@ -81,23 +68,23 @@ CREATE TEMP TABLE channel_values2
 		FROM  channels_by_duration cbd, tags_channels tc
 		WHERE tv.tag_id = tc.tag_id AND iterator = tc.channel_id;
 		
-		DELETE FROM channels_by_duration 
-		WHERE channel_id = iterator;
+		DELETE FROM channels_by_duration cbd
+		WHERE cbd.channel_id = iterator;
 		
 	END LOOP;
 		
 	/* Zaladuj stacje do tablicy tymczasowej */
 	INSERT INTO channel_values2(channel_id, channel_name, stream_url, value_)
-	SELECT id, name, stream_url,  0.0
-	FROM channel;
+	SELECT ch.id, ch.name, ch.stream_url, 0.0
+	FROM channel ch;
 	
 	/* Wypelnij wartosc stacji wg wartosci tagow */
 
 	
 	WHILE (SELECT COUNT(*) FROM tags_values) > 0 LOOP
 
-		SELECT tag_id INTO iterator
-		From tags_values
+		SELECT tv.tag_id INTO iterator
+		From tags_values tv
 		LIMIT 1;
 
 		UPDATE channel_values2 AS cv
@@ -105,8 +92,8 @@ CREATE TEMP TABLE channel_values2
 		FROM tags_values tv, tags_channels tc
 		WHERE iterator = tc.tag_id AND cv.channel_id = tc.channel_id;
 		
-		DELETE FROM tags_values 
-		WHERE tag_id = iterator;
+		DELETE FROM tags_values tv
+		WHERE tv.tag_id = iterator;
 
 	END LOOP;
 	
@@ -121,11 +108,11 @@ CREATE TEMP TABLE channel_values2
 	INSERT INTO average_ratings (channel_id, channel_name, average_rating)
 	SELECT chn.id, chn.name, 5.0
 	FROM channel chn
-	WHERE chn.id NOT IN (SELECT channel_id from average_ratings);
+	WHERE chn.id NOT IN (SELECT ar.channel_id from average_ratings ar);
 	
 	/* Pomnoz wartosc stacji przez srednia ocene */
 	UPDATE channel_values2 AS cv
-	SET value_ = value_ * ar.average_rating / 10.0
+	SET value_ = cv.value_ * ar.average_rating / 10.0
 	FROM average_ratings ar
 	WHERE cv.channel_id = ar.channel_id;
 	
@@ -138,6 +125,3 @@ CREATE TEMP TABLE channel_values2
     	
 
 END;
-$$
-LANGUAGE plpgsql;
-SELECT * FROM calculateRecommandation(user);
