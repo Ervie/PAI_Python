@@ -118,11 +118,14 @@ def postRegistration(request):
 
 def suggestions(request):
     """Odświeżanie sidebara z polecankami"""
-    # ToDo: Zaciągnąć polecanki z procedury bazodanowej.
+    
+    username = None
+
+    if request.user.is_authenticated:
+        username = request.user.username
 
     db = dbServices.dbServices();
-
-    # suggestions = db.get_suggestions();
+    suggestions = db.get_suggestions(username);
 
     jsonData = {};
     jsonData['FirstChannelName'] = "RMF FM Classic"; # suggestions[0].ChannelName itp.

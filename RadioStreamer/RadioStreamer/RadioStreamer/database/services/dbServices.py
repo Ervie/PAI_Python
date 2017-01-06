@@ -2,6 +2,7 @@
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import ProgrammingError
+from django.db import connection
 import random
 
 class dbServices(object):
@@ -141,3 +142,14 @@ class dbServices(object):
     # Gets all tags from database
     def get_tags(self):
         return Models.Tag.objects.all()
+
+    # Gets recommended channels for user
+    def get_suggestions(self, username):
+        cursor = connection.cursor();
+        try:
+            cursor.execute("SELECT * FROM calculaterecommandation(%s);", [username]);
+            result = cursor.fetchall();
+        finally:
+            cursor.close();
+
+        return result;
