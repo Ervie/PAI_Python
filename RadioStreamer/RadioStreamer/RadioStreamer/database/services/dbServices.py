@@ -145,9 +145,10 @@ class dbServices(object):
 
     # Gets recommended channels for user
     def get_suggestions(self, username):
-        cursor = connection.cursor();
+
         try:
-            cursor.execute("SELECT * FROM calculaterecommandation(%s);", [username]);
+            cursor = connection.cursor();
+            cursor.execute("SELECT channel_name, stream_url FROM calculaterecommandation(%s);", [username]);
             result = cursor.fetchall();
         finally:
             cursor.close();

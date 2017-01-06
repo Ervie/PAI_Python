@@ -128,12 +128,14 @@ def suggestions(request):
     suggestions = db.get_suggestions(username);
 
     jsonData = {};
-    jsonData['FirstChannelName'] = "RMF FM Classic"; # suggestions[0].ChannelName itp.
-    jsonData['FirstChannelUrl'] = "http://195.150.20.243:8000/rmf_classic";
-    jsonData['SecondChannelName'] = "Gensokyo Radio";
-    jsonData['SecondChannelUrl'] = "http://stream.gensokyoradio.net:8000/stream/1/";
-    jsonData['ThirdChannelName'] = "VGM Radio";
-    jsonData['ThirdChannelUrl'] = "http://radio.vgmradio.com:8040/stream";
+    jsonData['FirstChannelName'] = suggestions[0][0];
+    jsonData['FirstChannelUrl'] = suggestions[0][1];
+    if len(suggestions) > 1:
+        jsonData['SecondChannelName'] = suggestions[1][0];
+        jsonData['SecondChannelUrl'] = suggestions[1][1];
+        if len(suggestions) > 2:
+            jsonData['ThirdChannelName'] = suggestions[2][0];
+            jsonData['ThirdChannelUrl'] = suggestions[2][1];
 
     return HttpResponse(json.dumps(jsonData), content_type = "application/json");
 
